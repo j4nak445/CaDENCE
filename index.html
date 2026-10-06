@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; form-action 'none'; img-src 'self' data:; font-src 'self'; style-src 'unsafe-inline'; script-src 'sha256-DJ5wkA4Bvc0EhFUO7U9uYiEYdZrB6XkZOvl82daNhdM='; connect-src https://raw.githubusercontent.com https://cdn.jsdelivr.net https://api.github.com https://thehackernews.com https://feeds.feedburner.com https://api.rss2json.com https://api.allorigins.win https://hn.algolia.com; manifest-src 'self' data:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; form-action 'none'; img-src 'self' data:; font-src 'self'; style-src 'unsafe-inline'; script-src 'sha256-d0ZXQ6i8z+fi5bXk23KHZdaiKfSKsyjPU4ZfOdVE8yU='; connect-src https://raw.githubusercontent.com https://cdn.jsdelivr.net https://api.github.com; manifest-src 'self' data:">
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#eef1ef">
@@ -413,7 +413,7 @@ function seed(){
   function mk(name,emoji,color,days,offs){var log={};offs.forEach(function(o){log[dkey(addDays(t,-o))]=true;});return {id:uid(),name:name,emoji:emoji,color:color,days:days,log:log,createdAt:nowISO(),archived:false};}
   var s=defaultState();s.settings.seeded=true;
   s.habits=[
-    mk("Read 2 CVEs + 1 PoC","🛡️",PALETTE[0],[0,1,2,3,4,5,6],[0,1,2,4,5]),
+    mk("Read 1 CVE + 2 PoCs","🛡️",PALETTE[0],[0,1,2,3,4,5,6],[0,1,2,4,5]),
     mk("TryHackMe / HTB","💻",PALETTE[1],[0,1,2,3,4,5,6],[0,1,3,4,6]),
     mk("Workout","🏋️",PALETTE[3],[1,3,5],[0,2,4,7])
   ];
@@ -490,7 +490,7 @@ function viewToday(){
     +'<div class="stat"><div class="n tnum">'+dueTasks.length+'</div><div class="l">Tasks due</div></div>'
     +'<div class="stat"><div class="n tnum">'+readToday+'/3</div><div class="l">Read today</div></div></div></div>';
   h+='<div class="card pad rowlabel" style="cursor:pointer" data-act="setTab" data-val="learn" data-nav>'
-    +'<div><div class="title">'+IC.shield+' Daily security reading</div><div class="muted" style="margin-top:3px">2 CVEs + 1 proof-of-concept to study today</div></div>'
+    +'<div><div class="title">'+IC.shield+' Daily security reading</div><div class="muted" style="margin-top:3px">1 CVE + 2 proof-of-concepts to study today</div></div>'
     +'<span class="streakpill'+(ls?'':' zero')+'">'+IC.flame+'<span class="tnum">'+ls+'</span></span></div>';
   h+='<div class="sectlabel">Habits for today</div>';
   h+=hab.length?'<div class="list">'+hab.map(habitToggleRow).join("")+'</div>':'<div class="empty">No habits scheduled today.</div>';
@@ -551,7 +551,7 @@ function editTask(id){
 }
 function habitSheet(ex){
   var h=ex||{name:"",emoji:"✅",color:PALETTE[0],days:[0,1,2,3,4,5,6]},sel={emoji:h.emoji,color:h.color,days:h.days.slice()};
-  var body='<div class="field"><label>Name</label><input class="inp" id="hName" value="'+esc(h.name)+'" placeholder="e.g. Read 2 CVEs + 1 PoC" maxlength="60"></div>'
+  var body='<div class="field"><label>Name</label><input class="inp" id="hName" value="'+esc(h.name)+'" placeholder="e.g. Read 1 CVE + 2 PoCs" maxlength="60"></div>'
     +'<div class="field"><label>Icon</label><div class="picker" id="emojiPick">'+EMOJIS.map(function(e){return '<button type="button" class="pick" data-e="'+e+'" aria-pressed="'+(e===sel.emoji)+'">'+e+'</button>';}).join("")+'</div></div>'
     +'<div class="field"><label>Color</label><div class="picker" id="colorPick">'+PALETTE.map(function(c){return '<button type="button" class="swatch" data-c="'+c+'" aria-pressed="'+(c===sel.color)+'" style="background:'+c+'"></button>';}).join("")+'</div></div>'
     +'<div class="field"><label>Repeat</label><div class="seg" id="presetPick"><button type="button" data-p="daily">Daily</button><button type="button" data-p="weekdays">Weekdays</button><button type="button" data-p="custom">Custom</button></div>'
@@ -587,8 +587,6 @@ function viewSettings(){
   h+='<div class="sectlabel">Where the data comes from</div><div class="card pad"><ul class="srcs">'
     +srcRow("CVEs","CISA Known Exploited Vulnerabilities (official U.S. gov catalog)","https://www.cisa.gov/known-exploited-vulnerabilities-catalog")
     +srcRow("Proof-of-concept","Public PoC repositories indexed by GitHub Search","https://github.com/search?q=CVE&type=repositories")
-    +srcRow("Cybersecurity news","The Hacker News","https://thehackernews.com")
-    +srcRow("AI / LLM security","Hacker News (Algolia search API)","https://news.ycombinator.com")
     +'</ul></div>';
   h+='<div class="sectlabel">Install &amp; host</div><div class="card pad hint">This is one static page. Put <b>index.html</b> in a GitHub repo and enable <b>Settings → Pages</b> to host it free. On your phone, open it in Chrome → <b>⋮</b> → <b>Add to Home screen</b> to launch it full-screen.</div>';
   h+='<div class="foot">Cadence · local-first · built for learning. Vulnerability data is public information; proof-of-concept code is unvetted — study it, and only run it in an isolated lab you control.</div>';
@@ -631,7 +629,7 @@ function cycleTheme(){var o=["system","light","dark"],i=o.indexOf(state.settings
 function setTheme(v){state.settings.theme=v;save();applyTheme();if(ui.tab==="settings")render();}
 
 /* ---- navigation / render ---- */
-var NAV=[["today","Today",IC.today],["tasks","Tasks",IC.tasks],["habits","Habits",IC.habits],["learn","Learn",IC.shield],["news","News",IC.news],["ai","AI",IC.spark]];
+var NAV=[["today","Today",IC.today],["tasks","Tasks",IC.tasks],["habits","Habits",IC.habits],["learn","Learn",IC.shield]];
 function buildNav(){
   document.getElementById("tabs").innerHTML=NAV.map(function(t){return '<button class="tab" data-act="setTab" data-val="'+t[0]+'" data-nav>'+t[2]+'<span>'+t[1]+'</span></button>';}).join("");
   document.getElementById("sideNav").innerHTML=NAV.map(function(t){return '<button class="sidebtn" data-act="setTab" data-val="'+t[0]+'" data-nav>'+t[2]+'<span>'+t[1]+'</span></button>';}).join("");
@@ -641,7 +639,7 @@ function buildNav(){
 function markNav(){[].forEach.call(document.querySelectorAll("[data-nav]"),function(b){var on=b.getAttribute("data-val")===ui.tab;if(on)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current");});}
 function setTab(v){ui.tab=v;render();}
 function render(){
-  var map={today:viewToday,tasks:viewTasks,habits:viewHabits,learn:viewLearn,news:viewNews,ai:viewAi,settings:viewSettings};
+  var map={today:viewToday,tasks:viewTasks,habits:viewHabits,learn:viewLearn,settings:viewSettings};
   var fn=map[ui.tab]||viewToday;
   document.getElementById("view").innerHTML=fn();
   markNav();var m=document.getElementById("main");if(m)m.scrollTop=0;
@@ -699,28 +697,24 @@ function init(){
 }
 
 /* --- security module --- */
-/* ===== Cadence security module: Learn (CVE + PoC), News, AI ===== */
+/* ===== Cadence security module: Learn (1 CVE + 2 PoCs per day) ===== */
 var FKEY="cadence.feeds.v1";
-/* Every host below also appears in the page's Content-Security-Policy connect-src. */
+/* Both hosts groups below also appear in the page's Content-Security-Policy connect-src. */
 var SRC={
   kev:["https://raw.githubusercontent.com/cisagov/kev-data/develop/known_exploited_vulnerabilities.json",
        "https://cdn.jsdelivr.net/gh/cisagov/kev-data@develop/known_exploited_vulnerabilities.json"],
-  gh:"https://api.github.com/search/repositories?q=",
-  thnJson:"https://thehackernews.com/feeds/posts/default?alt=json&max-results=24",
-  thnRss:"https://feeds.feedburner.com/TheHackersNews",
-  rss2json:"https://api.rss2json.com/v1/api.json?count=24&rss_url=",
-  allorigins:"https://api.allorigins.win/raw?url=",
-  hn:"https://hn.algolia.com/api/v1/search_by_date?tags=story&hitsPerPage=25&query="
+  gh:"https://api.github.com/search/repositories?q="
 };
-var FRESH={kev:6*3600e3, news:30*60e3, ai:30*60e3};
+var FRESH={kev:6*3600e3};
+var DOSE_WINDOW_DAYS=100;   /* only draw CVEs added within this many days */
 
-/* Official CWE names (MITRE taxonomy) — classification only, used to label what weakness class a CVE belongs to. */
+/* Official CWE names (MITRE taxonomy) — classification only, to label a CVE's weakness class. */
 var CWE={"CWE-20":"Improper Input Validation","CWE-22":"Path Traversal","CWE-59":"Link Following","CWE-74":"Injection","CWE-77":"Command Injection","CWE-78":"OS Command Injection","CWE-79":"Cross-site Scripting","CWE-89":"SQL Injection","CWE-94":"Code Injection","CWE-120":"Buffer Overflow","CWE-125":"Out-of-bounds Read","CWE-190":"Integer Overflow","CWE-200":"Information Exposure","CWE-269":"Improper Privilege Management","CWE-276":"Incorrect Default Permissions","CWE-284":"Improper Access Control","CWE-287":"Improper Authentication","CWE-295":"Improper Certificate Validation","CWE-306":"Missing Authentication","CWE-352":"Cross-Site Request Forgery","CWE-362":"Race Condition","CWE-400":"Uncontrolled Resource Consumption","CWE-416":"Use After Free","CWE-434":"Unrestricted File Upload","CWE-476":"NULL Pointer Dereference","CWE-502":"Deserialization of Untrusted Data","CWE-522":"Insufficiently Protected Credentials","CWE-611":"XML External Entity","CWE-787":"Out-of-bounds Write","CWE-798":"Hard-coded Credentials","CWE-843":"Type Confusion","CWE-862":"Missing Authorization","CWE-863":"Incorrect Authorization","CWE-918":"Server-Side Request Forgery","CWE-1333":"Inefficient Regular Expression"};
 function cweName(c){return CWE[c]||c;}
 function cweNum(c){var m=/CWE-(\d+)/.exec(c);return m?m[1]:"";}
 
 /* ---- feeds cache ---- */
-var feeds=null, loadingLearn=false, loadingNews=false, loadingAi=false;
+var feeds=null, loadingLearn=false;
 function loadFeeds(){if(feeds)return feeds;try{var r=localStorage.getItem(FKEY);feeds=r?JSON.parse(r):{};}catch(e){feeds={};}feeds=feeds||{};return feeds;}
 function saveFeeds(){try{localStorage.setItem(FKEY,JSON.stringify(feeds));}catch(e){}}
 function fresh(entry,ms){return entry&&entry.at&&(Date.now()-entry.at)<ms;}
@@ -729,10 +723,7 @@ function fresh(entry,ms){return entry&&entry.at&&(Date.now()-entry.at)<ms;}
 function fetchTO(url,opts,ms){opts=opts||{};var c=new AbortController(),id=setTimeout(function(){c.abort();},ms||13000);
   return fetch(url,Object.assign({signal:c.signal,mode:"cors",credentials:"omit",cache:"no-store"},opts)).then(function(r){clearTimeout(id);return r;},function(e){clearTimeout(id);throw e;});}
 function fetchJSON(url,ms){return fetchTO(url,{headers:{Accept:"application/json"}},ms).then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json();});}
-function fetchText(url,ms){return fetchTO(url,null,ms).then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.text();});}
-function stripTags(s){var d=document.createElement("div");d.innerHTML=String(s||"");var t=d.textContent||d.innerText||"";return t.replace(/\s+/g," ").trim();}
 function safeUrl(u){u=String(u||"");return /^https?:\/\//i.test(u)?u:"#";}
-function parseDate(s){var t=Date.parse(s);if(!isNaN(t))return t;t=Date.parse(String(s).replace(" ","T")+"Z");return isNaN(t)?Date.now():t;}
 
 /* ---- CISA KEV ---- */
 function slimKev(v){return {id:v.cveID,name:v.vulnerabilityName||v.cveID,vendor:v.vendorProject||"",product:v.product||"",
@@ -751,26 +742,37 @@ function getKev(force){
 function mapRepo(r){return {full:r.full_name,name:r.name,desc:r.description||"",url:r.html_url,stars:r.stargazers_count||0,
   lang:r.language||"",fork:!!r.fork,created:r.created_at,pushed:r.pushed_at,owner:(r.owner&&r.owner.login)||""};}
 function ghSearch(q,per){return fetchJSON(SRC.gh+encodeURIComponent(q)+"&sort=stars&order=desc&per_page="+(per||6)).then(function(d){return (d.items||[]).map(mapRepo);});}
-function findPoc(cands,i){if(i>=cands.length||i>=6)return Promise.resolve(null);
-  return ghSearch('"'+cands[i].id+'"',4).then(function(repos){var pick=repos.filter(function(x){return !x.fork&&x.desc;})[0]||repos.filter(function(x){return !x.fork;})[0]||repos[0];if(pick){pick.forCve=cands[i].id;return pick;}return findPoc(cands,i+1);}).catch(function(){return findPoc(cands,i+1);});}
 
-/* ---- daily dose ---- */
+/* ---- daily dose: 1 CVE + 2 PoCs, drawn from the last DOSE_WINDOW_DAYS ---- */
 function doseSeed(dk){loadFeeds();feeds.salt=feeds.salt||{};return dk+"|"+(feeds.salt[dk]||0);}
+function collectPocs(cve,cands,need){
+  var got=[],seen={};
+  function add(repos,forId){(repos||[]).forEach(function(r){if(got.length<need&&r&&r.full&&!seen[r.full]){seen[r.full]=1;r.forCve=forId;got.push(r);}});}
+  function step(i){
+    if(got.length>=need||i>5)return Promise.resolve(got);
+    var id=(i===0)?cve.id:(cands[i-1]&&cands[i-1].id);
+    if(!id)return Promise.resolve(got);
+    return ghSearch('"'+id+'"',6).then(function(repos){add((repos||[]).filter(function(x){return !x.fork;}),id);add(repos,id);return step(i+1);}).catch(function(){return step(i+1);});
+  }
+  return step(0);
+}
 function computeDose(force){
   var dk=todayKey();loadFeeds();feeds.dose=feeds.dose||{};
-  if(!force&&feeds.dose[dk])return Promise.resolve(feeds.dose[dk]);
+  if(!force&&feeds.dose[dk]&&feeds.dose[dk].pocs)return Promise.resolve(feeds.dose[dk]);
   return getKev().then(function(items){
-    var recent=items.slice(0,150),shuf=seededShuffle(recent,doseSeed(dk)),cves=shuf.slice(0,2),cands=shuf.slice(2,10);
-    return findPoc(cands,0).then(function(poc){
-      var dose={cves:cves,poc:poc,at:Date.now()};
-      feeds.dose[dk]=dose;var keys=Object.keys(feeds.dose);if(keys.length>14){keys.sort();feeds.dose[keys[0]]&&delete feeds.dose[keys[0]];}
+    var cutoff=dkey(addDays(today(),-DOSE_WINDOW_DAYS));
+    var pool=items.filter(function(v){return v.dateAdded&&v.dateAdded>=cutoff;});
+    if(pool.length<6)pool=items.slice(0,40);
+    var shuf=seededShuffle(pool,doseSeed(dk)),cve=shuf[0],cands=shuf.slice(1,9);
+    return collectPocs(cve,cands,2).then(function(pocs){
+      var dose={cves:[cve],pocs:pocs,at:Date.now()};
+      feeds.dose[dk]=dose;var keys=Object.keys(feeds.dose);if(keys.length>14){keys.sort();delete feeds.dose[keys[0]];}
       saveFeeds();return dose;
     });
   });
 }
 
-/* ---- rendering: CVE / PoC cards ---- */
-function sevFromCwe(){return "";}
+/* ---- cards ---- */
 function cveCard(v,opts){
   opts=opts||{};var dk=todayKey(),itemKey=v.id,read=opts.track&&!!(state.reads[dk]&&state.reads[dk][itemKey]);
   var chips='';
@@ -811,23 +813,23 @@ function pocCard(p,opts){
 }
 
 /* ---- Learn view ---- */
+var secSearch="";
+function skel(n){var o='';for(var i=0;i<n;i++)o+='<div class="card skel"><div class="sk" style="width:40%"></div><div class="sk" style="width:85%"></div><div class="sk" style="width:70%"></div></div>';return o;}
+function failBox(msg,act){return '<div class="card fail">'+IC.alert+'<p>'+esc(msg)+'</p><div class="row2"><button class="btn sm" data-act="'+act+'">'+IC.refresh+'Retry</button></div></div>';}
 function viewLearn(){
   var ls=learnStreak();
-  var h='<div class="pagehead"><div><h1 class="h1">Learn</h1><div class="sub">Two known-exploited CVEs and one proof-of-concept to study each day</div></div>'
+  var h='<div class="pagehead"><div><h1 class="h1">Learn</h1><div class="sub">One known-exploited CVE and two proof-of-concepts to study each day</div></div>'
     +'<span class="streakpill'+(ls?'':' zero')+'" title="Daily reading streak">'+IC.flame+'<span class="tnum">'+ls+'</span></span></div>';
-  h+='<div class="rowlabel"><div class="sectlabel">Today’s reading</div><div class="hbtns">'
-    +'<button class="iconbtn sm" data-act="reshuffleDose" aria-label="Pick a different set">'+IC.shuffle+'</button>'
-    +'<button class="iconbtn sm" data-act="refreshLearn" aria-label="Refresh">'+IC.refresh+'</button></div></div>';
-  h+='<div id="doseWrap" class="rowspace">'+skel(3)+'</div>';
   h+='<div class="sectlabel">Search CVEs &amp; PoCs</div>';
   h+='<form class="searchwrap" id="cveSearchForm">'+IC.search+'<input class="inp" id="cveSearch" placeholder="Search e.g. Fortinet, RCE, CVE-2026-1234" aria-label="Search vulnerabilities and PoCs" value="'+esc(secSearch)+'"></form>';
   h+='<div class="foot">CVE search filters CISA’s known-exploited catalog; PoC search queries GitHub live.</div>';
   h+='<div id="searchResults" class="rowspace"></div>';
+  h+='<div class="rowlabel"><div class="sectlabel">Today’s reading</div><div class="hbtns">'
+    +'<button class="iconbtn sm" data-act="reshuffleDose" aria-label="Pick a different set">'+IC.shuffle+'</button>'
+    +'<button class="iconbtn sm" data-act="refreshLearn" aria-label="Refresh">'+IC.refresh+'</button></div></div>';
+  h+='<div id="doseWrap" class="rowspace">'+skel(3)+'</div>';
   return h;
 }
-function skel(n){var o='';for(var i=0;i<n;i++)o+='<div class="card skel"><div class="sk" style="width:40%"></div><div class="sk" style="width:85%"></div><div class="sk" style="width:70%"></div></div>';return o;}
-function failBox(msg,act){return '<div class="card fail">'+IC.alert+'<p>'+esc(msg)+'</p><div class="row2"><button class="btn sm" data-act="'+act+'">'+IC.refresh+'Retry</button></div></div>';}
-
 function afterLearn(){
   var wrap=document.getElementById("doseWrap");if(!wrap)return;
   var form=document.getElementById("cveSearchForm");
@@ -837,20 +839,19 @@ function afterLearn(){
   computeDose().then(function(dose){
     loadingLearn=false;var w=document.getElementById("doseWrap");if(!w)return;
     var html=dose.cves.map(function(v){return cveCard(v,{track:true});}).join("");
-    html+=dose.poc?pocCard(dose.poc,{track:true}):'<div class="card pad hint">No public proof-of-concept found for today’s picks yet. Reshuffle, or search below.</div>';
+    html+=(dose.pocs&&dose.pocs.length)?dose.pocs.map(function(p){return pocCard(p,{track:true});}).join("")
+      :'<div class="card pad hint">No public proof-of-concept found for today’s CVE yet. Try the shuffle button, or search below.</div>';
     w.innerHTML=html;
-  }).catch(function(){loadingLearn=false;var w=document.getElementById("doseWrap");if(w)w.innerHTML=failBox("Couldn’t reach the CVE catalog. Check your connection — this needs to be online (it works once hosted on GitHub Pages).","refreshLearn");});
+  }).catch(function(){loadingLearn=false;var w=document.getElementById("doseWrap");if(w)w.innerHTML=failBox("Couldn’t reach the CVE catalog. This needs to be online — it works once the page is hosted (e.g. GitHub Pages).","refreshLearn");});
 }
-var secSearch="";
 function runSearch(q,keep){
   q=(q||"").trim();secSearch=q;var box=document.getElementById("searchResults");if(!box)return;
   if(!q){box.innerHTML="";return;}
   box.innerHTML=skel(2);
   var out={cve:null,poc:null};
   function paint(){
-    var w=document.getElementById("searchResults");if(!w)return;if(out.cve===null||out.poc===null)return;
-    var h='';
-    h+='<div class="sectlabel">Known-exploited CVEs · '+out.cve.length+'</div>';
+    var w=document.getElementById("searchResults");if(!w||out.cve===null||out.poc===null)return;
+    var h='<div class="sectlabel">Known-exploited CVEs · '+out.cve.length+'</div>';
     h+=out.cve.length?out.cve.slice(0,12).map(function(v){return cveCard(v,{small:true});}).join(""):'<div class="empty">No matches in the CISA known-exploited catalog.</div>';
     h+='<div class="sectlabel">PoC repositories on GitHub · '+out.poc.length+'</div>';
     h+=out.poc.length?out.poc.slice(0,10).map(function(p){return pocCard(p,{small:true});}).join(""):'<div class="empty">No PoC repositories found for that search.</div>';
@@ -861,99 +862,13 @@ function runSearch(q,keep){
   ghSearch(ghq,10).then(function(repos){out.poc=repos;paint();}).catch(function(){out.poc=[];paint();});
 }
 
-/* ---- News (The Hacker News) ---- */
-function mapBlogger(d){return (d.feed&&d.feed.entry||[]).map(function(e){var link="";(e.link||[]).forEach(function(l){if(l.rel==="alternate")link=l.href;});
-  return {title:e.title&&e.title.$t||"",link:(link||"").replace(/^http:/,"https:"),date:parseDate(e.published&&e.published.$t),summary:stripTags((e.summary&&e.summary.$t)||(e.content&&e.content.$t)||"").slice(0,220)};}).filter(function(x){return x.title&&x.link;});}
-function mapRss2(d){return (d.items||[]).map(function(i){return {title:i.title||"",link:(i.link||"").replace(/^http:/,"https:"),date:parseDate(i.pubDate),summary:stripTags(i.description).slice(0,220)};}).filter(function(x){return x.title&&x.link;});}
-function mapXml(txt){var out=[];try{var doc=new DOMParser().parseFromString(txt,"text/xml"),items=doc.getElementsByTagName("item");
-  for(var i=0;i<items.length;i++){var it=items[i],g=function(t){var n=it.getElementsByTagName(t)[0];return n?(n.textContent||""):"";};out.push({title:g("title"),link:g("link").replace(/^http:/,"https:"),date:parseDate(g("pubDate")),summary:stripTags(g("description")).slice(0,220)});}}catch(e){}return out.filter(function(x){return x.title&&x.link;});}
-function getNews(force){
-  loadFeeds();if(!force&&fresh(feeds.thn,FRESH.news)&&feeds.thn.items&&feeds.thn.items.length)return Promise.resolve(feeds.thn.items);
-  function store(items){items.sort(function(a,b){return b.date-a.date;});feeds.thn={at:Date.now(),items:items.slice(0,24)};saveFeeds();return feeds.thn.items;}
-  return fetchJSON(SRC.thnJson).then(function(d){var m=mapBlogger(d);if(!m.length)throw new Error("empty");return store(m);})
-    .catch(function(){return fetchJSON(SRC.rss2json+encodeURIComponent(SRC.thnRss)).then(function(d){if(d.status!=="ok")throw new Error("rss2json");var m=mapRss2(d);if(!m.length)throw new Error("empty");return store(m);});})
-    .catch(function(){return fetchText(SRC.allorigins+encodeURIComponent(SRC.thnRss)).then(function(t){var m=mapXml(t);if(!m.length)throw new Error("empty");return store(m);});})
-    .catch(function(e){if(feeds.thn&&feeds.thn.items)return feeds.thn.items;throw e;});
-}
-function newsItem(n){var read=feeds.readLinks&&feeds.readLinks[n.link];
-  var u=safeUrl(n.link);
-  return '<a class="fitem'+(read?' read':'')+'" href="'+esc(u)+'" target="_blank" rel="noopener noreferrer" data-act="markLink" data-url="'+esc(u)+'">'
-    +'<div class="ftitle">'+esc(n.title)+'</div>'+(n.summary?'<div class="fsum">'+esc(n.summary)+'</div>':'')
-    +'<div class="fmeta"><span>'+relTime(n.date)+'</span><span>·</span><span>The Hacker News</span></div></a>';}
-function viewNews(){
-  var h='<div class="pagehead"><div><h1 class="h1">Cyber news</h1><div class="sub">Latest from The Hacker News</div></div>'
-    +'<button class="iconbtn" data-act="refreshNews" aria-label="Refresh">'+IC.refresh+'</button></div>';
-  h+='<div id="newsStale" class="stale" hidden></div><div id="newsWrap" class="card feed">'+skel(4)+'</div>';
-  return h;
-}
-function afterNews(){
-  var wrap=document.getElementById("newsWrap");if(!wrap)return;
-  if(loadingNews)return;loadingNews=true;loadFeeds();
-  getNews().then(function(items){loadingNews=false;var w=document.getElementById("newsWrap");if(!w)return;w.innerHTML=items.map(newsItem).join("");
-    var st=document.getElementById("newsStale");if(st&&feeds.thn){st.hidden=false;st.textContent="Updated "+relTime(feeds.thn.at);}})
-    .catch(function(){loadingNews=false;var w=document.getElementById("newsWrap");if(w)w.innerHTML='<div class="fail">'+IC.alert+'<p>Couldn’t load the news feed right now. It needs an internet connection and works best on the hosted site.</p><div class="row2"><button class="btn sm" data-act="refreshNews">'+IC.refresh+'Retry</button><a class="btn sm ghost" href="https://thehackernews.com" target="_blank" rel="noopener noreferrer">Open site'+IC.ext+'</a></div></div>';});
-}
-
-/* ---- AI / LLM security (Hacker News via Algolia) ---- */
-var AIQ=["LLM security","prompt injection","jailbreak","AI red team","model release LLM"];
-function aiCat(t){t=(t||"").toLowerCase();
-  if(/jailbreak|jailbroken/.test(t))return "jb";
-  if(/prompt injection|indirect injection|injection attack/.test(t))return "inj";
-  if(/release|launch|announc|introduc|unveil|open-source|open source|open-weights|now available|gpt-|claude |llama|gemini|mistral|qwen|deepseek/.test(t))return "launch";
-  if(/defen|guard|detect|mitigat|secur|safety|alignment|red team|benchmark|eval/.test(t))return "def";
-  return "sec";}
-var AICATS={all:"All",jb:"Jailbreaks",inj:"Prompt injection",launch:"Launches",def:"Defense &amp; research",sec:"General"};
-function getAi(force){
-  loadFeeds();if(!force&&fresh(feeds.ai,FRESH.ai)&&feeds.ai.items&&feeds.ai.items.length)return Promise.resolve(feeds.ai.items);
-  return Promise.all(AIQ.map(function(q){return fetchJSON(SRC.hn+encodeURIComponent(q)).then(function(d){return d.hits||[];}).catch(function(){return [];});}))
-    .then(function(lists){
-      var seen={},items=[];lists.forEach(function(hits){hits.forEach(function(h){var url=h.url||("https://news.ycombinator.com/item?id="+h.objectID);if(!h.title||seen[h.objectID])return;seen[h.objectID]=1;
-        items.push({title:h.title,url:url,id:h.objectID,date:(h.created_at_i||0)*1000||parseDate(h.created_at),points:h.points||0,author:h.author||"",comments:h.num_comments||0,cat:aiCat(h.title+" "+(h.url||""))});});});
-      if(!items.length)throw new Error("empty");
-      items.sort(function(a,b){return b.date-a.date;});feeds.ai={at:Date.now(),items:items.slice(0,60)};saveFeeds();return feeds.ai.items;
-    }).catch(function(e){if(feeds.ai&&feeds.ai.items)return feeds.ai.items;throw e;});
-}
-var aiCatSel="all";
-function aiItem(n){var read=feeds.readLinks&&feeds.readLinks[n.url];var cls={jb:"cat-jb",inj:"cat-inj",launch:"cat-launch",def:"cat-def",sec:""}[n.cat]||"";
-  var u=safeUrl(n.url);
-  return '<div class="fitem'+(read?' read':'')+'"><a class="ftitle" href="'+esc(u)+'" target="_blank" rel="noopener noreferrer" data-act="markLink" data-url="'+esc(u)+'">'+esc(n.title)+'</a>'
-    +'<div class="fmeta"><span class="tag '+cls+'">'+AICATS[n.cat].replace(/&amp;/g,"&")+'</span>'+IC.up.replace("<svg","<svg style=\"width:11px;height:11px;vertical-align:-1px\"")+' <span class="tnum">'+n.points+'</span>'
-    +'<span>· '+relTime(n.date)+'</span><a class="hnlink" href="https://news.ycombinator.com/item?id='+esc(n.id)+'" target="_blank" rel="noopener noreferrer">'+n.comments+' comments'+IC.ext+'</a></div></div>';}
-function viewAi(){
-  var h='<div class="pagehead"><div><h1 class="h1">AI security</h1><div class="sub">LLM launches, jailbreaks &amp; defenses — surfaced on Hacker News</div></div>'
-    +'<button class="iconbtn" data-act="refreshAi" aria-label="Refresh">'+IC.refresh+'</button></div>';
-  h+='<div id="aiCats" class="catrow"></div>';
-  h+='<div id="aiStale" class="stale" hidden></div><div id="aiWrap" class="card feed">'+skel(5)+'</div>';
-  return h;
-}
-function paintAiCats(items){
-  var box=document.getElementById("aiCats");if(!box)return;var counts={all:items.length};
-  items.forEach(function(n){counts[n.cat]=(counts[n.cat]||0)+1;});
-  box.innerHTML=Object.keys(AICATS).map(function(k){var n=counts[k]||0;if(k!=="all"&&!n)return"";return '<button class="cat" data-act="setAiCat" data-val="'+k+'" aria-pressed="'+(aiCatSel===k)+'">'+AICATS[k]+'<span class="n">'+n+'</span></button>';}).join("");
-}
-function paintAi(){var items=(feeds.ai&&feeds.ai.items)||[];var w=document.getElementById("aiWrap");if(!w)return;
-  var list=aiCatSel==="all"?items:items.filter(function(n){return n.cat===aiCatSel;});
-  w.innerHTML=list.length?list.slice(0,50).map(aiItem).join(""):'<div class="empty">Nothing in this category right now.</div>';
-  var st=document.getElementById("aiStale");if(st&&feeds.ai){st.hidden=false;st.textContent="Updated "+relTime(feeds.ai.at);}
-  paintAiCats(items);}
-function afterAi(){
-  var wrap=document.getElementById("aiWrap");if(!wrap)return;if(loadingAi)return;loadingAi=true;loadFeeds();
-  getAi().then(function(){loadingAi=false;if(document.getElementById("aiWrap"))paintAi();})
-    .catch(function(){loadingAi=false;var w=document.getElementById("aiWrap");if(w)w.innerHTML='<div class="fail">'+IC.alert+'<p>Couldn’t load AI security stories right now. This needs an internet connection.</p><div class="row2"><button class="btn sm" data-act="refreshAi">'+IC.refresh+'Retry</button></div></div>';});
-}
-
 /* ---- tab enter + security actions ---- */
-function enterTab(tab){if(tab==="learn")afterLearn();else if(tab==="news")afterNews();else if(tab==="ai")afterAi();}
-function markLink(url){loadFeeds();feeds.readLinks=feeds.readLinks||{};feeds.readLinks[url]=1;var ks=Object.keys(feeds.readLinks);if(ks.length>500)delete feeds.readLinks[ks[0]];saveFeeds();}
+function enterTab(tab){if(tab==="learn")afterLearn();}
 function onSecAction(act,el){
   switch(act){
-    case "toggleDose":{var day=el.getAttribute("data-day"),key=el.getAttribute("data-key");markRead(day,key);vibrate();render();break;}
+    case "toggleDose":{markRead(el.getAttribute("data-day"),el.getAttribute("data-key"));vibrate();render();break;}
     case "reshuffleDose":{loadFeeds();var dk=todayKey();feeds.salt=feeds.salt||{};feeds.salt[dk]=(feeds.salt[dk]||0)+1;if(feeds.dose)delete feeds.dose[dk];saveFeeds();var w=document.getElementById("doseWrap");if(w)w.innerHTML=skel(3);loadingLearn=false;afterLearn();break;}
     case "refreshLearn":{loadFeeds();var d2=todayKey();if(feeds.dose)delete feeds.dose[d2];if(feeds.kev)feeds.kev.at=0;saveFeeds();var w2=document.getElementById("doseWrap");if(w2)w2.innerHTML=skel(3);loadingLearn=false;afterLearn();break;}
-    case "refreshNews":{loadFeeds();if(feeds.thn)feeds.thn.at=0;saveFeeds();var w3=document.getElementById("newsWrap");if(w3)w3.innerHTML=skel(4);loadingNews=false;afterNews();break;}
-    case "refreshAi":{loadFeeds();if(feeds.ai)feeds.ai.at=0;saveFeeds();var w4=document.getElementById("aiWrap");if(w4)w4.innerHTML=skel(5);loadingAi=false;afterAi();break;}
-    case "setAiCat":{aiCatSel=el.getAttribute("data-val");paintAi();break;}
-    case "markLink":{markLink(el.getAttribute("data-url"));el.classList.add("read");break;}
   }
 }
 
