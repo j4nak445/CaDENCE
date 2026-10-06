@@ -16,9 +16,6 @@ No build step · No backend · No accounts · No trackers · One `index.html`
 
 <div align="center">
 
-<img src="screenshots/today.png" width="31%" alt="Today dashboard" />
-<img src="screenshots/learn.png" width="31%" alt="Daily CVE & PoC reading" />
-<img src="screenshots/habits.png" width="31%" alt="Habits & streaks" />
 
 </div>
 
