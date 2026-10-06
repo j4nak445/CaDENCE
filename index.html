@@ -1,0 +1,879 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; form-action 'none'; img-src 'self' data:; font-src 'self'; style-src 'unsafe-inline'; script-src 'sha256-d0ZXQ6i8z+fi5bXk23KHZdaiKfSKsyjPU4ZfOdVE8yU='; connect-src https://raw.githubusercontent.com https://cdn.jsdelivr.net https://api.github.com; manifest-src 'self' data:">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#eef1ef">
+<meta name="description" content="Local-first tasks, habits and daily security reading (CVEs, PoCs and news). Your data stays on your device.">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Cadence">
+<link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjogIkNhZGVuY2UiLCAic2hvcnRfbmFtZSI6ICJDYWRlbmNlIiwgInN0YXJ0X3VybCI6ICIuIiwgInNjb3BlIjogIi4iLCAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwgImJhY2tncm91bmRfY29sb3IiOiAiIzBkMTMxMiIsICJ0aGVtZV9jb2xvciI6ICIjMGU4ZjdlIiwgImRlc2NyaXB0aW9uIjogIkxvY2FsLWZpcnN0IHRhc2tzLCBoYWJpdHMgYW5kIGRhaWx5IHNlY3VyaXR5IHJlYWRpbmcuIiwgImljb25zIjogW3sic3JjIjogImRhdGE6aW1hZ2UvcG5nO2Jhc2U2NCxpVkJPUncwS0dnb0FBQUFOU1VoRVVnQUFBTUFBQUFEQUNBWUFBQUJTM0d3SEFBQUVva2xFUVZSNDJ1M2RQVzZUVFJoRzRabFgxS0doendLUVdBMExpWHNFaXBVK0xJVFZJR1VCOURUeEJrSUZSUUFudHQrZm1ibXZVeVB3enpuelBPTjhuMU5MbzF6ZGYzNHFHSWJEYmw5YmZGeVY3RWlPb3BJZXlURlUwaU01aGtwOEpJZFFpWS9rRUNyeGtSekNSSDcwd2hKdVRlUkhjZ1NWK0VoZWlTYnlJM2thVE9SSGNnUVQrWkVjd1VSK0pFY3drUi9KRVV6a1IzSUVFL21SSE1GRWZpUkhNSG1wa013MFYwbEFqMU5nSWorU0k1aklqK1FJM0FIZ0R1RDBSK29VTUFGZ0FqajlrVG9GVEFDWUFFNS9wRTRCRXdEUnZQRVM0QlMrLy96MjRwLzU4TzVqTjgrblduOHdoL1M5eGZEN2Y2ZzNBYkNJK00vL2psWkRjQWZBWXZJditmZk51Z0paZjdDbXFLMU1nOE51WDAwQXJINUt0elFOQklCTnBHd2xBZ0ZnTXhsYmlFQUFpS2E2QUR2OXQyYkxTN0VKUVA3b3h5RUFSQ01BcDMvMDR4RUFUQUJBQUxEK0JENHVBY0FFQUFRQUNBQVFBQ0FBUUFDQUFBQUJZQ0JhL1lhR0xSNlhBR0FDQUFLQU5Tanc4UWdBSmdCTWdkVEhJUUFSUlAvN0FvQVZDS1pBNmdvbUFHd2lZeXYzRHdGZ2RTbGIrZ2pXTDhqQUh4NXZia3NwdDZXVVVuNThlaiswK0NZQWpuSjk5ekM4L0FMQXM5UC83d2d1RGVINjdxSHBYNXBuQmNJLzVmL2ZOSGpOYWpUMzlCQUFOcE8vWjdtdFFKaFYvaEVSQVBrRkFQSXZ4ZHV2WHdRQUo3OEFFQ2QvNjZlL0FCQXR2d0NjL3RIeUM0RDgwZklMZ1B6UjhndUEvTkh5QzREODhRaUEvTEdudndESUh5Mi9BTWdmTGI4QXlCOHR2d0FRTGI4QW5QN1I4Z3VBL05IeUM0RDgwZklMZ1B6eENJRDhzYWUvQU1nZkxiOEF5Qjh0dndESUh5MS9LUU44TWRZeE1WTGVSUEtmVDcyNi8vdzArb25ZK3h2cTQwNHIwRVZDUE43Y2R2dXhJZmtGTUpzUXZVVkFmZ0hNTGtRdkVaQmZBSXNKMFhvRWZzb3JnRlVrYTFFMEgzY0tZRlVwV29xQS9BS0lYVG5JTHdCN04va0ZrQmlCVDN3RUVCc0IrUVVRR3dINUJkQjBCS044K2tUK3pnUFk4ZzFjUWxRLzZCSkE3RXJrNDA0QmRQbEc5dmpmSVpGL3NBblFjd1RrRjBEc09rUitBUXoxNXJaOGlTVi93QVRvS1FJZmR3cGc2QWlPQ1U1K0FTeitwcmM2RGNndmdOaVZ5QSs2K3FIYnIwWHA3WExxOURjQnlPRDVDb0FVbnFjQXlPSDVDWUFrbnBjQUZwZGxKR0hJTDRCWWNjZ3ZnRmlCeUMrQVdKSElMd0JDUVFDSkVZaFZBTEZ5a1Y4QXNaS1JYd0NyeXRhU2NPUVhRS3g0NUJkQXJJRGtGMEJzQk9RWFFHd0U1QmVBU1FBQkpFWWdNZ0YwRWNFU29wSmZBTEhUZ1B3Q2lJMkEvQUtJallEOEFvaTlGNUMvVFliNllxeXRPUGFGWE1RWEFHQUZBZ1FBQ0FBUUFDQUFRQUNBQUFBQkFBSUFCQUNzRmNCaHQ2OWVCaVJ5Mk8yckNRQXJFQ0FBUUFCQVlBQXV3a2k4QUpzQU1BRzhCQkNBTlFpQjY0OEpBQlBBU3dBQldJTVF1UDZZQURBQlhpb0VHUFgwTndGZ0FyeTJGR0MwMDk4RWdBbHdhakhBS0tmL2l4TkFCQmhaL2xldFFDTEFxUEs3QThBZFlLNlNnTjVPLzVNbWdBZ3dtdnducjBBaXdFanluM1VIRUFGR2tmL3NTN0FJTUlMOFp3Y2dBb3dnLzBVQmlBQzl5Mzl4QUNKQXovS1hVc3FzOHZxZHcraEYvTmttZ0dtQVh1V2ZQUUFSb0NmNVoxK0JyRVRvUmZ4VkFoQUNXdDhtVmwxWGhJRFcxdWpOOW5VeG9JVzdZeE1YVmpHUWZpdWEvY1JHRkdSZmcxL1BZRFAybXpmREV3QUFBQUJKUlU1RXJrSmdnZz09IiwgInNpemVzIjogIjE5MngxOTIiLCAidHlwZSI6ICJpbWFnZS9wbmciLCAicHVycG9zZSI6ICJhbnkgbWFza2FibGUifSwgeyJzcmMiOiAiZGF0YTppbWFnZS9wbmc7YmFzZTY0LGlWQk9SdzBLR2dvQUFBQU5TVWhFVWdBQUFnQUFBQUlBQ0FZQUFBRDBlTlQ2QUFBT1FrbEVRVlI0MnUzY01XNFQwUnFHWWM5UmF0UFFzd0FrVnNOQ1NJK01pT2pOUWxnTkVndWdweUViTUZXa0VCTGllTWFlODUvdmVkcXJlMjg4TnZPOWN4eVlOcFN4M2U4T3JnTFFzOXZybThsVnFNRWJaZUFCQklJQXdOQURDQU1CZ01FSEVBUUNBSU1QSUFnRUFFWWZRQXdJQUtNUGdCZ1FBRVlmQURFZ0FBdy9BRUpBQUJoOUFNU0FBREQ4QUFnQkFXRDRBUkFDQXNEd0F5QUVCSURoQjBBSUNBRERENEFRRUFDR0h3QWg4S3htL0FFZ2J5c21ieVlBNUowR0RQdmlERDhBUXVCcFEzNEZZUHdCc0NsQkp3Q0dId0NuQVdFbkFNWWZBRnNURmdER0h3Q2I4ektUTndFQVRsUDVLNEd5SndER0h3QmJGQllBeGg4QW16VFA1Q0lEd0RJcWZTVlE1Z1RBK0FOZ3E4SUN3UGdESUFMQ0FzRDRBeUFDd2dMQStBTWdBc0lDd1BnRElBTENBc0Q0QXlBQ3dnTEErQU1nQXNJQ3dQZ0RJQUxDQXNENEF5QUN3Z0xBK0FNZ0FzSUN3UGdESUFMQ0FzRDRBeUFDd2dMQStBTWdBdGJid3BiMmdnRkFCS3dRQU1ZZkFOYmZ4amI2Q3dRQUViQmlBQmgvQU9obks1dkxEUUI1TGhJQW52NEJvSy9OYktPOEVBQVFBWjBFZ1BFSGdENDMxTzhBQUVDZ3N3V0FwMzhBNkhkTFc3VWZHQUJFUUljQllQd0JvUDl0OVRzQUFCQm8wUUR3OUE4QU5VNEJXcTgvR0FCd3ZxMzFGUUFBQkZva0FEejlBMEN0VXdBbkFBRGdCTURUUHdBa25BSzB0WDhBQU9EeUcrd3JBQUFJZEhJQWVQb0hnTHFuQUU0QUFNQUpnS2QvQUVnNEJYQUNBQUJPQUR6OUEwRENLWUFUQUFCd0F1RHBId0FTVGdHY0FBQ0FFd0JQL3dDUWNBcmdCQUFBbkFCNCtnZUFoRk1BSndBQTRBUUFBQkFBRzhmL0FGRE5NZHZ0QkFBQW5BQjQrZ2VBaEZPQUs1Y0lZRnpmZjMwNytiLzc3dlY3RjNCZ0FnREEyQi85dnljS3hqRTk5Ujg0L2dmSUczMG5CT081dmI2Wm5BQUFHUDJ6L0J4aW9CNEJBR0Q0Ri92WmhFQWRqeDRMT1A0SE1QcHppWUYrUFBZMWdIOEhBTUQ0Ky9rRCtRb0F3SENlL2JVNERlalBQMGNDanY4QkRQKzVDSUgxUFB3YXdGY0FBTWJmNnd3a0FBQ01vdGNieU84QUFCakMxVjY3cndRNk9RSHcvVCtBOFhjZHh2Unc0MzBGQUdEMFhJLzBFd0FBakozcklnQUFNSEt1eitnQjRQdC9BT1BtT28zdC90WTdBUUF3YXE1WDhna0FBTWJNZFJNQUFCZ3gxMDhBQUFBQ0FBQlByNjVqL1FEd053QUFqSmJybWVGdTg1MEFBQmdyMXpYMUJBQUFFQUFBZUVwMWZRVUFBQ0FBQVBCMDZqb0xBQUNqWkpSY2J3RUFBRlFJQVA4R0FBQmsyZTUzQnljQUFETTRqbmJkeTU0QXVBUUFJQUFBOEJUcStnc0FBRUFBQUFBQ0FDQ1Y0MmZ2Z3dBQUFBUUFBQ0FBQUliajJObjdJUUFBQUFFQUFBZ0FBRUFBQUFBQ0FLQWd2M0RtZlJFQUFJQUFBQUFFQUFBZ0FBQUFBUUFBQ0FBQVFBQUFBQUlBQUJBQUFJQUFBQUFFQUFBZ0FBQUFBUUFBQ0FBQUVBQUFQT3ZkNi9jdWd2ZEZBQUFBQWdBQUVBQUFnQUFBQUFRQVFGVis0Y3o3SVFBQUFBRUFBQWdBZ0dFNWR2WStDQUFBUUFBQUFBSUFZRmlPbjExL0FRQUFDQUFBVDZHNDdnSUFBQkFBQUlBQUFDak9jYlRyTFFBQWpCS3Vzd0FBQUFRQWdLZFRYRjhCQUFBSUFBQlBxYml1QWdEQVdPRjZDZ0FBbytVNklnQUFBQUVBNE9uVjlVTUFBQmd4MXcwQkFHRE1YQzhFQUlCUmM1MFFBQURHemZVUkFBQVlPZGRGQUFCZzdGd1BBUURBTXQ1OCtlRWlHUDlWWGJrRUFKZjErOFBudnlMZzU4ZTNoaDhuQUFBSjQ1OThHbUQ4QlFCQS9QaW5SWUR4NzRldkFBQldIditIRVREaVZ3S0dYd0FBR1ArZ0VERDgvZklWQUVDbnFuOHRZUHlkQUFCNCtsOGdBaXFjQ056OXZLKytmdkxtQ3dBQTQ3L2t1UFlZQXY1ZEF3RUF3Qm5HdjhkVEFhTXZBQUM0MFBpdkhRTkdYd0FBc1BMNEh6UE9jNkxBMkFzQUFEb2ZmeVBPUy9scmdBQ0RqajhJQUFCQUFBQjQra2NBQUdEOEVRQUFHUDg1L0N1QUFnREErSU1BQUREK0lBQUFqRDhJQUFEalg1L3Yvd1VBQUNBQUFEejllL3BIQUFBWWZ4QUFBTWJmMHo4Q0FNRDRnd0FBTVA2ZS9oRUFBTWJmK0NNQUFJeS84VWNBQUJoL0VBQUFlUHBIQUFCNCtqZitiRGFiemViS0pRQ012L0UzL0U0QUFJdy94bDhBQUJoLzQyLzhCUUNBOFRmK0NBQUE0Mi84RVFBQXh0LzRJd0FBTVA0SUFBQlAvOFlmQVFCZy9JMC9BZ0RBK0lNQUFERCtudjRSQUFERzMvZ2pBQUNNdi9GSEFBQVlmK09QQUFEQStDTUFBRS8vR0g4RUFHRDhqVDhJQU1ENGd3QUFNUDZlL2hFQUFNYmYrQ01BQUl5LzhVY0FBQmgvNDQ4QUFERCt4aDhCQUlEeFJ3QUFlUG8zL2dnQUFPTnYvQkVBQU1ZZkJBQ0E4ZmYwandBQWpEL0dId0VBR0grTVB3SUFNUDdHSHdRQWdQRUhBUUI0K2pmK0lBQUE0Mi84UVFBQXhoOEVBSUR4OS9TUEFBQXcvc1lmQVFCZy9JMC9BZ0RBK0J0L0JBQUF4aDhCQU9EcDMvZ2pBQUNNdi9GSEFBREdIeEFBZ1BISDB6OENBREQreGg4RUFHRDhqVDhJQU1ENEczOVl3cFZMd0p3YnRwc1dHSDlxbXJiNzNjRmxNUGh1WkhqNk4vNElBTnljM2RRdy9zYWZ3ZmtLd0kzNXJQOGZibkErWTRBVEFJSnZ5a0xBNXd4L0p1aUx2d1hncG13VThENGJmd1FBYnNyR0FlK3Y4U2VCcndEY2tOMEVNZjQrOXpnQndBM1p6NGYzMHZnakFIQkQ5bk9DOFVjQUFJZzQ0NDhBd0EzWmdQaXNZZndSQUxnaG4vNXpHeE9mTlVBQUVIcEROaXJlSjAvL0lBQXdMbmgvakQ4SUFKSnV5a2JHKzJMOFFRQmdiUEIrR0g4UUFDVGRtSTBPeGg4RUFBSUg3NEh4QndGQTBvM1pBTG4yeGg4RUFNRkRaSXlNUHlBQU1FcTR6cDcrUVFCZ25IQjlqVDhJQURkcHJ4L1gxZmlEQU1CWTRYb2FmeEFBR0Mwdy9nZ0Fsd0FSZ0d0by9CRUFZTUJjTzR3L0FnQnFEWmt4TS82QUFNQ280VHA1K2djQmdISEQ5VEgrSUFBd2NxNEx4aDhCQU1iTzljRDRJd0RBNkxrT3hoOEVBRzVTeGc5L3JrQUFRTmtJU0EwQkFXVDhRUUFnQk1MRzBQZ2JmeEFBRURhS3hoOFFBSjVhQ0J0SDQrL1BFUWdBQ0J0SjQyLzhRUUM0Z1JFMmxzYmZueDBRQUJBMm1zYmYrSU1BY0RQRGVPTFBDd2dBT0RZQ3FvYUFnREgrSUFEYzJBZ2JVK1B2endnSUFEYzR3a2JWK0FNQ0FCRVFOcTdHMzU4TEVBQVFOckxHMy9pREFNQU5MMnhzamI4L0N5QUFjT01MRzEzajc4OEFDQUNldlFHNkNScGY0dzhJQURkREZvcUF0VUpBZ1BpOGd3REFUVEhzTk1ENCs1eURBT0RrbTZNYlpNMVJOdjZBQU1CVFVsZ0VHSCtmYXhBQXVGbUdSWUR4OTNrR0FZQ2JabGdFR0grZll4QUF1SG1HUllEeDkva0ZBWUNiYVBoSkFENjNJQUJ3TXkwVUFhZUdnSUR3ZVFVQmdKdHEyR21BOGZjNUJRSEFhamRYTjloMUlzRDRBd0lBVDFsaEVXRDhmUzVCQU9CbUd4WUJ4dC9uRVFRQWJycGhFV0Q4ZlE1QkFPRG1HeFlCeHQvbkR3UUFic0xoSndINDNJRUF3TTBZZk41QUFPQ21qTThaSUFEbzVPYnNCbzN4QndHQUd6VUFBZ0FSQUQ1UElBQncwd2FmSXhBQXVIbUR6dzhJQU56RThibHhFVUFBNEdhT3p3c2dBQ2g3VTNkangvaURBTUFOSG53MlFBRGdSZytBQUVBRTRQTUFDQURjOVBFNUFBUUFidjU0L3dFQmdCSEErdzRJQUl3QjNtOUFBRkJyRkF5RDhRY0VBQVlDN3kwZ0FEQVVBQWdBUkFEZVQwQUFZRFR3UGdJQ0FPT0I5dzhRQUJnUnZHK0FBTUNZNFAwQ0JBQzFSc1d3R0g5QUFHQmc4TjRBQWdCRGcvY0VFQUFZSEFBRUFDSUE3d01nQURBK3VQNkFBTUFJNGJxREFBQmpoT3NOQWdCcWpaSmhNdjZBQU1CQTRkb0NBZ0JEaFdzS0NBQU1GZ0FDQUJHQTZ3Z0NBSXdYcmg4SUFEQmlyaHNnQUtEc21CazA0dzhJQUF3YnJoRWdBREJ3dURZZ0FNRFF1U2FBQUFDREJ5QUFRQVM0RG9BQUFPUG45UU1DQUl5ZzF3MElBS2cxaGttRGFQd0JBUUJodzJqOEFRRUFZUU5wL0FFQkFJWVNFQURBNkJFZ2FnQUJBRVlUUUFEQTZCRWdaQUFCQUdFRGF2d0JBUUF6aDdUYW1CcC9RQUFBQUFJQVJuK3E5dlFQQ0FBSUcxZmpEeHhqMnU1M0I1Y0JUdlA3dzJmRER6Z0JBS2NCeGg4UUFDQUNqRC9RS1Y4QndJSXUrWldBNFFjRUFBU0ZnT0VIQkFBRWhZRGhCd1FBQkFTQndRY0VBQUN3S0g4TEFBQUVBQUFnQUFBQUFRQUFDQUFBUUFBQUFBSUFBQkFBQUlBQUFBQUVBQUFnQUFBQUFRQUFDQUFBUUFBQUFBSUFBQkFBQUlBQUFBQUVBQUFJQUFCQUFBQUFBZ0FBRUFBQVFPRUF1TDIrbVZ3R0FNaHhlMzB6T1FFQWdNUVRBSmNBQUFRQUFDQUFBQUFCQUFBSUFBQkFBQUFBbFFMQXZ3VUFBQm51TnQ4SkFBQ2tuZ0FBQUFJQUFCQUFBSUFBQUFER0NRQi9Fd0FBeG5aLzY1MEFBRUR5Q1FBQUlBQUFnSlFBOEhzQUFEQ21oeHZ2QkFBQTBrOEFBQUFCQUFDa0JJRGZBd0NBc1R5MjdVNEFBTUFKQUFBUUd3QytCZ0NBTVR5MTZVNEFBTUFKQUFBUUhRQytCZ0NBMnY2MzVVNEFBTUFKQUFBUUh3QytCZ0NBbXA3YmNDY0FBT0FFd0NrQUFJeis5TzhFQUFDY0FBQUFBdUFlWHdNQVFBM0hicllUQUFCd0F1QVVBQUJHZi9wM0FnQUFUZ0NjQWdCQXd0Ty9Fd0FBY0FMZ0ZBQUFFcDcrblFBQWdCTUFwd0FBa1BEMDd3UUFBSndBT0FVQWdJU25meWNBQU9BRXdDa0FBQ1E4L1M5eUFpQUNBS0RXK0M4U0FBQkFQWXNFZ0ZNQUFLano5TzhFQUFDY0FEZ0ZBSUNFcC8vRlR3QkVBQUQwUC82TEJ3QUFVTVBpQWVBVUFBRDYzOVpXNVFjRkFPUGZlUUNJQUFEb2UwdjlEZ0FBQkRwckFEZ0ZBSUErTjdSVmZ3RUFZUHc3REFBUkFBRDliYWJmQVFDQVFCY0xBS2NBQU5EUFZyWlJYeGdBR1A5T0FrQUVBRUFmMjloU1hpZ0FHUCtWQTBBRUFNQzZXOWhTWHpnQUpHOWdTNzhBQUpDNGZjMkZBSUM4eldzdUNBRGtiVjF6WVFBZ2IrT2FDd1FBZWR2V1hDZ0F5TnUwNW9JQlFONldOUmNPQVBJMnJMbUFBSkMzWGMyRkJJQzh6V291S0FEa2JWWEpVZDN1ZHdjZk13QU1mOEFKZ05NQUFHeFNlQUNJQUFCczBUeERqS2l2QkFBdy9DRW5BRTREQUxBNTRRRWdBZ0N3TlM4ejVHajZTZ0FBd3g5eUF1QTBBQUNiRW40QzREUUFBTU1mSGdCQ0FBREQvNi9tRFFXQXZLMklIRVduQVFDa1B5UkdQeFVMQVFERG4vcmFIWXNMQVFEREx3Q0VnS3NBWVBnRmdCQUF3UEFMQUNFQWdPRVhBR0lBQUtNdkFJUUFBSVpmQUlnQkFJeStBQkFEQUJoOUFTQUdBREQ2QWtBUUFHRHdCWUFnQURENENBQmhBR0RvRVFBQ0FjREFNOU1meFpiaFFDUUsrLzBBQUFBQVNVVk9SSzVDWUlJPSIsICJzaXplcyI6ICI1MTJ4NTEyIiwgInR5cGUiOiAiaW1hZ2UvcG5nIiwgInB1cnBvc2UiOiAiYW55IG1hc2thYmxlIn1dfQ==">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAEoklEQVR42u3dPW6TTRhG4ZlX1KGhzwKQWA0LiXsEipU+LITVIGUB9DTxBkIFRQAntt+fmbmvUyPwzznzPON8n1NLo1zdf34qGIbDbl9bfFyV7EiOopIeyTFU0iM5hkp8JIdQiY/kECrxkRzCRH70whJuTeRHcgSV+EheiSbyI3kaTORHcgQT+ZEcwUR+JEcwkR/JEUzkR3IEE/mRHMFEfiRHMHmpkMw0V0lAj1NgIj+SI5jIj+QI3AHgDuD0R+oUMAFgAjj9kToFTACYAE5/pE4BEwDRvPES4BS+//z24p/58O5jN8+nWn8wh/S9xfD7f6g3AbCI+M//jlZDcAfAYvIv+ffNugJZf7CmqK1Mg8NuX00ArH5KtzQNBIBNpGwlAgFgMxlbiEAAiKa6ADv9t2bLS7EJQP7oxyEARCMAp3/04xEATABAALD+BD4uAcAEAAQACAAQACAAQACAAAABYCBa/YaGLR6XAGACAAKANSjw8QgAJgBMgdTHIQARRP/7AoAVCKZA6gomAGwiYyv3DwFgdSlb+gjWL8jAHx5vbkspt6WUUn58ej+0+CYAjnJ99zC8/ALAs9P/7wguDeH67qHpX5pnBcI/5f/fNHjNajT39BAANpO/Z7mtQJhV/hERAPkFAPIvxduvXwQAJ78AECd/66e/ABAtvwCc/tHyC4D80fILgPzR8guA/NHyC4D88QiA/LGnvwDIHy2/AMgfLb8AyB8tvwAQLb8AnP7R8guA/NHyC4D80fILgPzxCID8sae/AMgfLb8AyB8tvwDIHy1/KQN8MdYxMVLeRPKfT726//w0+onY+xvq404r0EVCPN7cdvuxIfkFMJsQvUVAfgHMLkQvEZBfAIsJ0XoEfsorgFUka1E0H3cKYFUpWoqA/AKIXTnILwB7N/kFkBiBT3wEEBsB+QUQGwH5BdB0BKN8+kT+zgPY8g1cQlQ/6BJA7Erk404BdPlG9vjfIZF/sAnQcwTkF0DsOkR+AQz15rZ8iSV/wAToKQIfdwpg6AiOCU5+ASz+prc6DcgvgNiVyA+6+qHbr0Xp7XLq9DcByOD5CoAUnqcAyOH5CYAknpcAFpdlJGHIL4BYccgvgFiByC+AWJHILwBCQQCJEYhVALFykV8AsZKRXwCrytaScOQXQKx45BdArIDkF0BsBOQXQGwE5BeASQABJEYgMgF0EcESopJfALHTgPwCiI2A/AKIjYD8Aoi9F5C/TYb6YqytOPaFXMQXAGAFAgQACAAQACAAQACAAAABAAIABACsFcBht69eBiRy2O2rCQArECAAQABAYAAuwki8AJsAMAG8BBCANQiB648JABPASwABWIMQuP6YADABXioEGPX0NwFgAry2FGC0098EgAlwajHAKKf/ixNABBhZ/letQCLAqPK7A8AdYK6SgN5O/5MmgAgwmvwnr0AiwEjyn3UHEAFGkf/sS7AIMIL8ZwcgAowg/0UBiAC9y39xACJAz/KXUsqs8vqdw+hF/NkmgGmAXuWfPQARoCf5Z1+BrEToRfxVAhACWt8mVl1XhIDW1ujN9nUxoIW7YxMXVjGQfiua/cRGFGRfg1/PYDP2mzfDEwAAAABJRU5ErkJggg==">
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAEoklEQVR42u3dPW6TTRhG4ZlX1KGhzwKQWA0LiXsEipU+LITVIGUB9DTxBkIFRQAntt+fmbmvUyPwzznzPON8n1NLo1zdf34qGIbDbl9bfFyV7EiOopIeyTFU0iM5hkp8JIdQiY/kECrxkRzCRH70whJuTeRHcgSV+EheiSbyI3kaTORHcgQT+ZEcwUR+JEcwkR/JEUzkR3IEE/mRHMFEfiRHMHmpkMw0V0lAj1NgIj+SI5jIj+QI3AHgDuD0R+oUMAFgAjj9kToFTACYAE5/pE4BEwDRvPES4BS+//z24p/58O5jN8+nWn8wh/S9xfD7f6g3AbCI+M//jlZDcAfAYvIv+ffNugJZf7CmqK1Mg8NuX00ArH5KtzQNBIBNpGwlAgFgMxlbiEAAiKa6ADv9t2bLS7EJQP7oxyEARCMAp3/04xEATABAALD+BD4uAcAEAAQACAAQACAAQACAAAABYCBa/YaGLR6XAGACAAKANSjw8QgAJgBMgdTHIQARRP/7AoAVCKZA6gomAGwiYyv3DwFgdSlb+gjWL8jAHx5vbkspt6WUUn58ej+0+CYAjnJ99zC8/ALAs9P/7wguDeH67qHpX5pnBcI/5f/fNHjNajT39BAANpO/Z7mtQJhV/hERAPkFAPIvxduvXwQAJ78AECd/66e/ABAtvwCc/tHyC4D80fILgPzR8guA/NHyC4D88QiA/LGnvwDIHy2/AMgfLb8AyB8tvwAQLb8AnP7R8guA/NHyC4D80fILgPzxCID8sae/AMgfLb8AyB8tvwDIHy1/KQN8MdYxMVLeRPKfT726//w0+onY+xvq404r0EVCPN7cdvuxIfkFMJsQvUVAfgHMLkQvEZBfAIsJ0XoEfsorgFUka1E0H3cKYFUpWoqA/AKIXTnILwB7N/kFkBiBT3wEEBsB+QUQGwH5BdB0BKN8+kT+zgPY8g1cQlQ/6BJA7Erk404BdPlG9vjfIZF/sAnQcwTkF0DsOkR+AQz15rZ8iSV/wAToKQIfdwpg6AiOCU5+ASz+prc6DcgvgNiVyA+6+qHbr0Xp7XLq9DcByOD5CoAUnqcAyOH5CYAknpcAFpdlJGHIL4BYccgvgFiByC+AWJHILwBCQQCJEYhVALFykV8AsZKRXwCrytaScOQXQKx45BdArIDkF0BsBOQXQGwE5BeASQABJEYgMgF0EcESopJfALHTgPwCiI2A/AKIjYD8Aoi9F5C/TYb6YqytOPaFXMQXAGAFAgQACAAQACAAQACAAAABAAIABACsFcBht69eBiRy2O2rCQArECAAQABAYAAuwki8AJsAMAG8BBCANQiB648JABPASwABWIMQuP6YADABXioEGPX0NwFgAry2FGC0098EgAlwajHAKKf/ixNABBhZ/letQCLAqPK7A8AdYK6SgN5O/5MmgAgwmvwnr0AiwEjyn3UHEAFGkf/sS7AIMIL8ZwcgAowg/0UBiAC9y39xACJAz/KXUsqs8vqdw+hF/NkmgGmAXuWfPQARoCf5Z1+BrEToRfxVAhACWt8mVl1XhIDW1ujN9nUxoIW7YxMXVjGQfiua/cRGFGRfg1/PYDP2mzfDEwAAAABJRU5ErkJggg==">
+<title>Cadence</title>
+<style>
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+:root{
+  /* layout: local-first app shell; sidebar on desktop, top bar + bottom tabs on phones; one centered reading column */
+  --maxw:580px; --maxw-d:820px;
+  --bg:#eef1ef; --surface:#ffffff; --surface-2:#e7ecea; --fg:#14201c; --muted:#56655f;
+  --line:#d9e1de; --accent:#0e8f7e; --accent-ink:#0a7364; --accent-fg:#ffffff; --accent-weak:#d5eee8;
+  --danger:#c03d33; --flame:#b25a12; --good:#257f50; --ransom:#8e2650; --info:#3567a8;
+  --radius:16px; --radius-sm:12px;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;
+  --shadow:0 1px 2px rgba(14,30,26,.05),0 8px 20px rgba(14,30,26,.06);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0d1312; --surface:#151d1b; --surface-2:#1e2926; --fg:#e6eeeb; --muted:#93a39d;
+  --line:#25322e; --accent:#33bca6; --accent-ink:#5fd3bf; --accent-fg:#04201a; --accent-weak:#123832;
+  --danger:#ef6c61; --flame:#f0974f; --good:#52c486; --ransom:#e0709c; --info:#7fb0ef;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 24px rgba(0,0,0,.38); color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0d1312; --surface:#151d1b; --surface-2:#1e2926; --fg:#e6eeeb; --muted:#93a39d;
+  --line:#25322e; --accent:#33bca6; --accent-ink:#5fd3bf; --accent-fg:#04201a; --accent-weak:#123832;
+  --danger:#ef6c61; --flame:#f0974f; --good:#52c486; --ransom:#e0709c; --info:#7fb0ef;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 24px rgba(0,0,0,.38); color-scheme:dark;
+}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);font-size:15px;line-height:1.5;overflow:hidden;
+  -webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:var(--accent-ink)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2.5px solid var(--accent);outline-offset:2px;border-radius:6px}
+.mono{font-family:var(--mono)}
+.tnum{font-variant-numeric:tabular-nums}
+[hidden]{display:none!important}
+
+.shell{display:flex;height:100%}
+.col{flex:1;min-width:0;display:flex;flex-direction:column;height:100%}
+.sidebar{display:none}
+.wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding-inline:16px}
+header.topbar{flex:0 0 auto;background:var(--bg);border-bottom:1px solid var(--line)}
+.hrow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px}
+.hbtns{display:flex;gap:8px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:-.02em;font-size:20px;min-width:0}
+.brand .mark{width:26px;height:26px;border-radius:8px;background:var(--accent);display:grid;place-items:center;color:var(--accent-fg);flex:0 0 auto}
+.brand .mark svg{width:16px;height:16px}
+.brand .tag{font-weight:650;color:var(--muted);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.iconbtn{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--fg);width:40px;height:40px;border-radius:12px;
+  display:grid;place-items:center;cursor:pointer;flex:0 0 auto}
+.iconbtn svg{width:19px;height:19px}
+.iconbtn:disabled{opacity:.6;cursor:default}
+.spin svg{animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+main{flex:1 1 auto;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+main .wrap{padding-block:18px 36px;display:flex;flex-direction:column;gap:14px}
+nav.tabbar{flex:0 0 auto;background:var(--surface);border-top:1px solid var(--line)}
+.tabs{display:flex;max-width:720px;margin:0 auto;overflow-x:auto}
+.tab{flex:1 0 auto;min-width:60px;border:0;background:transparent;color:var(--muted);padding:8px 6px 7px;display:flex;flex-direction:column;
+  align-items:center;gap:3px;cursor:pointer;font-size:10.5px;font-weight:650}
+.tab svg{width:22px;height:22px}
+.tab span{white-space:nowrap}
+.tab[aria-current="page"]{color:var(--accent-ink)}
+.sidenav{display:flex;flex-direction:column;gap:2px}
+.sidebtn{display:flex;align-items:center;gap:12px;width:100%;padding:10px 12px;border-radius:10px;border:0;background:transparent;
+  color:var(--muted);font-weight:650;font-size:14.5px;cursor:pointer;text-align:left}
+.sidebtn svg{width:20px;height:20px;flex:0 0 auto}
+.sidebtn:hover{background:var(--surface-2);color:var(--fg)}
+.sidebtn[aria-current="page"]{background:var(--accent-weak);color:var(--accent-ink)}
+.sidefoot{margin-top:auto;display:flex;flex-direction:column;gap:2px;padding-top:12px;border-top:1px solid var(--line)}
+@media (min-width:900px){
+  .sidebar{display:flex;flex-direction:column;gap:4px;width:238px;flex:0 0 238px;height:100%;overflow-y:auto;background:var(--surface);
+    border-right:1px solid var(--line);padding:18px 12px}
+  .sidebar .brand{padding:4px 10px 16px}
+  header.topbar,nav.tabbar{display:none}
+  .wrap{max-width:var(--maxw-d)}
+  main .wrap{padding-block:30px 52px;padding-inline:32px}
+}
+
+.pagehead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.pagehead>div{min-width:0}
+.h1{font-size:27px;font-weight:800;letter-spacing:-.025em;line-height:1.15;margin:0;text-wrap:balance}
+.sub{color:var(--muted);font-size:13px;margin-top:4px}
+.sectlabel{font-size:11.5px;font-weight:750;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:8px 2px -4px}
+.rowlabel{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.rowspace{display:flex;flex-direction:column;gap:10px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.pad{padding:15px}
+.foot{color:var(--muted);font-size:12.5px;line-height:1.55;margin:4px 2px 0}
+.foot a{color:var(--muted)}
+.hint{color:var(--muted);font-size:13px;line-height:1.55}
+.hint b{color:var(--fg)}
+.muted{color:var(--muted);font-size:12.5px}
+
+.summary{display:flex;align-items:center;gap:16px}
+.ring{flex:0 0 auto}
+.ring text{fill:var(--fg)}
+.stats{display:flex;gap:10px;flex:1;min-width:0}
+.stat{flex:1;min-width:0}
+.stat .n{font-size:21px;font-weight:800;letter-spacing:-.02em;line-height:1}
+.stat .l{font-size:11.5px;color:var(--muted);margin-top:5px;font-weight:650}
+
+.list{display:flex;flex-direction:column;gap:9px}
+.row{display:flex;align-items:flex-start;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:12px 13px;box-shadow:var(--shadow)}
+.row.done{box-shadow:none;background:transparent}
+.row.done .title{color:var(--muted);text-decoration:line-through}
+.check{flex:0 0 auto;width:25px;height:25px;border-radius:50%;border:2px solid var(--line);background:transparent;color:var(--accent-fg);
+  display:grid;place-items:center;cursor:pointer;margin-top:1px}
+.check svg{width:14px;height:14px;opacity:0}
+.check[aria-checked="true"]{background:var(--accent);border-color:var(--accent)}
+.check[aria-checked="true"] svg{opacity:1}
+.rowmain{flex:1;min-width:0;cursor:pointer}
+.title{font-weight:600;word-break:break-word}
+.title svg{width:19px;height:19px;vertical-align:-4px}
+.note{color:var(--muted);font-size:13px;margin-top:3px;white-space:pre-wrap;word-break:break-word}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.row .chips{margin-top:7px}
+.chip{font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--surface-2);color:var(--muted);
+  display:inline-flex;align-items:center;gap:4px;line-height:1.4;text-decoration:none}
+.chip svg{width:12px;height:12px}
+.chip.due-over,.chip.pri-high,.chip.sev-crit{background:color-mix(in srgb,var(--danger) 14%,transparent);color:var(--danger)}
+.chip.due-today,.chip.pri-med,.chip.sev-high{background:color-mix(in srgb,var(--flame) 15%,transparent);color:var(--flame)}
+.chip.pri-low,.chip.sev-med{background:var(--accent-weak);color:var(--accent-ink)}
+.chip.ransom{background:color-mix(in srgb,var(--ransom) 15%,transparent);color:var(--ransom)}
+a.chip:hover{text-decoration:underline}
+
+.addbar{display:grid;grid-template-columns:1fr auto auto;gap:8px;padding:10px}
+.addbar .optrow{grid-column:1 / -1;display:flex;gap:8px;flex-wrap:wrap}
+.addbar .optrow>*{flex:1;min-width:130px}
+.inp{width:100%;border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:10px;padding:11px 12px;font-size:15px;font-family:inherit}
+.inp::placeholder{color:var(--muted)}
+select.inp{appearance:none}
+.btn{border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:10px;padding:0 15px;height:44px;font-weight:700;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;font-size:14.5px;white-space:nowrap}
+.btn svg{width:16px;height:16px;flex:0 0 auto}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.btn.ghost{background:transparent}
+.btn.danger{background:color-mix(in srgb,var(--danger) 13%,transparent);border-color:transparent;color:var(--danger)}
+.btn.block{width:100%}
+.btn.sm{height:36px;padding:0 12px;font-size:13px}
+.btn.sm svg{width:14px;height:14px}
+.btn:disabled{opacity:.55;cursor:default}
+.linkbtn{border:0;background:transparent;color:var(--accent-ink);font-weight:700;font-size:13px;cursor:pointer;padding:4px;align-self:flex-start}
+
+.seg{display:flex;background:var(--surface-2);border-radius:12px;padding:3px;gap:2px}
+.seg button{flex:1;border:0;background:transparent;color:var(--muted);padding:8px 4px;border-radius:9px;font-weight:700;font-size:13px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--fg);box-shadow:var(--shadow)}
+.searchwrap{position:relative;display:flex;align-items:center}
+.searchwrap>svg{position:absolute;left:12px;width:17px;height:17px;color:var(--muted);pointer-events:none}
+.searchwrap .inp{padding-left:36px}
+
+.habit{display:flex;flex-direction:column;gap:12px;padding:15px}
+.hhead{display:flex;align-items:center;gap:11px}
+.hemoji{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;font-size:20px;flex:0 0 auto}
+.hname{font-weight:700;flex:1;min-width:0;word-break:break-word}
+.hname .schedline{font-weight:600;color:var(--muted);font-size:12px;margin-top:1px}
+.streak{display:inline-flex;align-items:center;gap:5px;font-weight:800;font-size:15px;color:var(--flame)}
+.streak svg{width:16px;height:16px}
+.streak.zero{color:var(--muted)}
+.days{display:flex;gap:6px;justify-content:space-between}
+.day{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;border:0;background:transparent;cursor:pointer;padding:0}
+.day .lbl{font-size:10.5px;color:var(--muted);font-weight:700}
+.day .dot{width:30px;height:30px;max-width:100%;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;color:#fff}
+.day .dot svg{width:14px;height:14px;opacity:0}
+.day.done .dot{border-color:transparent}
+.day.done .dot svg{opacity:1}
+.day.off{opacity:.38;cursor:default}
+.day.today .lbl{color:var(--accent-ink)}
+.hfoot{display:flex;align-items:center;gap:10px}
+.bar{flex:1;height:8px;border-radius:999px;background:var(--surface-2);overflow:hidden}
+.bar>span{display:block;height:100%;border-radius:999px}
+.hfoot .pct{font-size:12px;font-weight:700;color:var(--muted);min-width:72px;text-align:right}
+.heat{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,1fr);gap:3px;margin-top:2px;overflow-x:auto}
+.heatcell{width:13px;height:13px;border-radius:3px;background:var(--surface-2)}
+
+.banner{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--accent-weak);color:var(--accent-ink);border-radius:12px;padding:11px 13px;font-size:13px;font-weight:600}
+.banner .btn{margin-left:auto}
+.empty{text-align:center;color:var(--muted);padding:22px 16px;font-size:14px}
+.empty .big{font-size:30px;margin-bottom:6px}
+.empty .btn{margin-top:10px}
+.warn{background:color-mix(in srgb,var(--flame) 13%,transparent);color:var(--flame);border-radius:12px;padding:11px 13px;font-size:13px;font-weight:600}
+.stale{font-size:12.5px;color:var(--muted);margin:-2px 2px 0}
+
+.dose{display:flex;flex-direction:column;gap:12px}
+.dosehead{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.streakpill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 12px;background:color-mix(in srgb,var(--flame) 14%,transparent);
+  color:var(--flame);font-weight:800;font-size:14px;white-space:nowrap;flex:0 0 auto}
+.streakpill svg{width:15px;height:15px}
+.streakpill.zero{background:var(--surface-2);color:var(--muted)}
+.progwrap{display:flex;align-items:center;gap:10px}
+
+.intel{padding:16px;display:flex;flex-direction:column;gap:11px}
+.intel.isread{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.intelhead{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.intelhead>svg{width:20px;height:20px;flex:0 0 auto;color:var(--muted)}
+.fmeta svg{width:12px;height:12px;vertical-align:-1px}
+.kind{font-size:11.5px;font-weight:750;letter-spacing:.02em;color:var(--muted);display:inline-flex;align-items:center;gap:7px;min-width:0}
+.kind::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--muted);flex:0 0 auto}
+.kind.cve::before{background:var(--danger)}
+.kind.poc::before{background:var(--flame)}
+.cveid{font-size:13px;font-weight:700;color:var(--accent-ink);letter-spacing:.01em}
+.intelname{font-size:17px;line-height:1.3;margin:-4px 0 0;font-weight:750;letter-spacing:-.01em;text-wrap:balance;word-break:break-word}
+.intelname.small{font-size:14.5px;font-weight:700}
+.meta{color:var(--muted);font-size:13px;margin-top:-6px}
+.desc{margin:0;font-size:14.5px;line-height:1.55;word-break:break-word}
+.study{background:var(--surface-2);border-radius:12px;padding:12px 13px;display:flex;flex-direction:column;gap:7px;font-size:13.5px;line-height:1.5}
+.studylab{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:750;display:flex;align-items:center;gap:7px}
+.studylab svg{width:14px;height:14px}
+.study ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:5px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.actions .readbtn{margin-left:auto}
+.readbtn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.trust{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:13px}
+.trust li{display:flex;align-items:center;gap:8px}
+.trust svg{width:15px;height:15px;flex:0 0 auto}
+.trust .ok{color:var(--good)}
+.trust .mid{color:var(--muted)}
+.trust .warn{color:var(--flame)}
+.callout{display:flex;gap:10px;align-items:flex-start;border:1px solid color-mix(in srgb,var(--flame) 35%,transparent);
+  background:color-mix(in srgb,var(--flame) 8%,transparent);border-radius:12px;padding:11px 12px;font-size:13px;line-height:1.5}
+.callout svg{width:17px;height:17px;flex:0 0 auto;color:var(--flame);margin-top:1px}
+.callout.info{border-color:color-mix(in srgb,var(--info) 35%,transparent);background:color-mix(in srgb,var(--info) 8%,transparent)}
+.callout.info svg{color:var(--info)}
+
+.feed{overflow:hidden}
+.fitem{display:flex;flex-direction:column;gap:5px;padding:13px 15px;text-decoration:none;color:var(--fg);border-top:1px solid var(--line)}
+.fitem:first-child{border-top:0}
+a.fitem:hover{background:var(--surface-2)}
+.ftitle{font-weight:650;line-height:1.38;color:var(--fg);word-break:break-word}
+.fsum{color:var(--muted);font-size:13.5px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.fmeta{display:flex;flex-wrap:wrap;align-items:center;gap:5px 10px;font-size:12px;color:var(--muted)}
+.fitem.read .ftitle{color:var(--muted);font-weight:550}
+.hnlink{color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+.hnlink:hover{color:var(--accent-ink);text-decoration:underline}
+.hnlink svg{width:10px;height:10px}
+.tag{font-size:10.5px;font-weight:750;padding:2px 8px;border-radius:999px;background:var(--surface-2);color:var(--muted);white-space:nowrap}
+.tag.cat-inj{background:color-mix(in srgb,var(--danger) 13%,transparent);color:var(--danger)}
+.tag.cat-jb{background:color-mix(in srgb,var(--ransom) 14%,transparent);color:var(--ransom)}
+.tag.cat-def{background:var(--accent-weak);color:var(--accent-ink)}
+.tag.cat-launch{background:color-mix(in srgb,var(--info) 14%,transparent);color:var(--info)}
+.catrow{display:flex;flex-wrap:wrap;gap:8px}
+.cat{border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:650;cursor:pointer;white-space:nowrap}
+.cat .n{opacity:.7;font-size:11.5px;margin-left:3px}
+.cat[aria-pressed="true"]{background:var(--fg);border-color:var(--fg);color:var(--bg)}
+.skel{display:flex;flex-direction:column;gap:11px;padding:16px}
+.sk{height:12px;border-radius:6px;background:linear-gradient(90deg,var(--surface-2) 25%,var(--bg) 50%,var(--surface-2) 75%);background-size:200% 100%;animation:shimmer 1.4s ease-in-out infinite}
+@keyframes shimmer{from{background-position:200% 0}to{background-position:-200% 0}}
+.fail{display:flex;flex-direction:column;gap:10px;align-items:flex-start;padding:16px}
+.fail p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.5}
+.fail .row2{display:flex;flex-wrap:wrap;gap:8px}
+
+.hist summary{cursor:pointer;font-weight:700;font-size:14px}
+.histlist{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:9px}
+.histlist li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:center;font-size:13.5px}
+.histlist a{color:var(--fg);text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.histlist a:hover{text-decoration:underline}
+.histlist .tag{font-family:var(--mono)}
+
+.plist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;font-size:13.5px;line-height:1.55}
+.plist li{display:flex;gap:11px}
+.plist>li>svg{width:18px;height:18px;flex:0 0 auto;color:var(--accent-ink);margin-top:2px}
+.plist b{display:block}
+.srcs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px}
+.srcs li{display:flex;flex-direction:column;gap:2px;font-size:13.5px}
+.srcs .role{font-weight:700}
+.srcs a{font-size:12.5px;word-break:break-all}
+
+.backdrop{position:fixed;inset:0;background:rgba(8,16,14,.52);display:flex;align-items:flex-end;justify-content:center;z-index:40}
+.sheet{width:100%;max-width:var(--maxw);background:var(--surface);border-radius:20px 20px 0 0;padding:8px 16px calc(18px + env(safe-area-inset-bottom,0px));
+  max-height:90%;overflow-y:auto;box-shadow:0 -10px 40px rgba(0,0,0,.25)}
+.grip{width:38px;height:4px;border-radius:999px;background:var(--line);margin:6px auto 12px}
+.sheet h2{font-size:19px;margin:0 0 12px;letter-spacing:-.01em}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.field label{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.picker{display:flex;flex-wrap:wrap;gap:8px}
+.pick{width:42px;height:42px;border-radius:11px;border:2px solid var(--line);background:var(--surface-2);display:grid;place-items:center;font-size:20px;cursor:pointer}
+.pick[aria-pressed="true"]{border-color:var(--accent)}
+.swatch{width:34px;height:34px;border-radius:50%;border:3px solid transparent;cursor:pointer}
+.swatch[aria-pressed="true"]{border-color:var(--fg)}
+.wd{display:flex;gap:6px}
+.wd button{flex:1;border:1px solid var(--line);background:var(--surface-2);color:var(--muted);border-radius:9px;padding:9px 0;font-weight:700;cursor:pointer;font-size:13px}
+.wd button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.sheetrow{display:flex;gap:10px;margin-top:4px}
+textarea.inp{min-height:120px;resize:vertical;font-family:var(--mono);font-size:12.5px}
+@media (min-width:900px){.backdrop{align-items:center;padding:24px}.sheet{border-radius:20px;max-height:85%;padding-bottom:20px}.grip{display:none}.sheet h2{margin-top:10px}}
+
+#toastRoot{position:fixed;left:0;right:0;bottom:calc(78px + env(safe-area-inset-bottom,0px));display:flex;justify-content:center;z-index:50;pointer-events:none;padding-inline:16px}
+@media (min-width:900px){#toastRoot{bottom:24px;left:238px}}
+.toast{background:var(--fg);color:var(--bg);border-radius:12px;padding:11px 14px;display:flex;align-items:center;gap:14px;box-shadow:0 8px 24px rgba(0,0,0,.3);
+  font-weight:600;font-size:13.5px;max-width:var(--maxw);width:100%;pointer-events:auto}
+.toast button{margin-left:auto;background:transparent;border:0;color:var(--accent);font-weight:800;cursor:pointer;font-size:13.5px}
+@keyframes pop{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+.check[aria-checked="true"] svg,.day.done .dot svg{animation:pop .18s ease}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" aria-label="Main navigation">
+    <div class="brand"><span class="mark" data-mark></span><span>Cadence</span></div>
+    <nav class="sidenav" id="sideNav" aria-label="Sections"></nav>
+    <div class="sidefoot">
+      <button class="sidebtn" data-act="setTab" data-val="settings" data-nav data-gear></button>
+      <button class="sidebtn" data-act="cycleTheme" data-theme-btn="side"></button>
+    </div>
+  </aside>
+  <div class="col">
+    <header class="topbar"><div class="wrap hrow">
+      <div class="brand"><span class="mark" data-mark></span><span>Cadence</span><span class="tag">local-first</span></div>
+      <div class="hbtns">
+        <button class="iconbtn" data-act="cycleTheme" data-theme-btn="icon" aria-label="Change theme"></button>
+        <button class="iconbtn" data-act="setTab" data-val="settings" data-nav data-gear aria-label="Settings"></button>
+      </div>
+    </div></header>
+    <main id="main"><div class="wrap" id="view"></div></main>
+    <nav class="tabbar" aria-label="Sections"><div class="tabs" id="tabs"></div></nav>
+  </div>
+</div>
+<div id="modalRoot"></div>
+<div id="toastRoot" aria-live="polite"></div>
+<script>(function(){
+"use strict";
+/* ===== Cadence core: state, tasks, habits, today, settings, shell ===== */
+var KEY="cadence.v1";
+var PALETTE=["#0e8f7e","#3b82c4","#8b5cf6","#e0652a","#d6457a","#2f9e63","#c99a26","#6b7a74"];
+var EMOJIS=["✅","💧","📖","🏋️","🧘","🏃","🥗","😴","🧠","💻","🎧","🦷","☀️","✍️","🎯","🛡️"];
+var WDL=["S","M","T","W","T","F","S"], WDFULL=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+function sv(p,f){return '<svg viewBox="0 0 24 24" aria-hidden="true" '+(f?'fill="currentColor"':'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"')+'>'+p+'</svg>';}
+var IC={
+ check:'<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>',
+ cal:sv('<rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/>'),
+ flame:sv('<path d="M12 2c0 3-4 4.5-4 8a4 4 0 0 0 1 2.6C8.5 11 10 10 10 10c0 2 2 2.7 2 5 1.5 0 3-1.4 3-3 0 .8.9 1.6.9 3A4.9 4.9 0 0 1 12 22a6 6 0 0 1-6-6c0-5 6-6 6-14z"/>',1),
+ plus:sv('<path d="M12 5v14M5 12h14"/>'),
+ trash:sv('<path d="M4 7h16M9 7V5h6v2M7 7l1 13h8l1-13"/>'),
+ search:sv('<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/>'),
+ sun:sv('<circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M19.4 4.6l-1.8 1.8M6.4 17.6l-1.8 1.8"/>'),
+ moon:sv('<path d="M20 14.5A8 8 0 1 1 9.5 4 6.3 6.3 0 0 0 20 14.5z"/>'),
+ auto:sv('<rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/>'),
+ today:sv('<rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/><circle cx="12" cy="14.5" r="2" fill="currentColor" stroke="none"/>'),
+ tasks:sv('<path d="M10 6h10M10 12h10M10 18h10"/><path d="M3.5 6l1.2 1.2L7 5M3.5 12l1.2 1.2L7 11M3.5 18l1.2 1.2L7 17"/>'),
+ habits:sv('<path d="M12 2c0 3-4 4.5-4 8a4 4 0 0 0 1 2.6C8.5 11 10 10 10 10c0 2 2 2.7 2 5 1.5 0 3-1.4 3-3 0 .8.9 1.6.9 3A4.9 4.9 0 0 1 12 22a6 6 0 0 1-6-6c0-5 6-6 6-14z"/>'),
+ shield:sv('<path d="M12 3l7 3v5.2c0 4.4-2.9 8.2-7 9.6-4.1-1.4-7-5.2-7-9.6V6l7-3z"/><path d="M9 12l2.2 2.2L15.5 10"/>'),
+ news:sv('<rect x="3" y="4" width="14" height="16" rx="2"/><path d="M17 8h2.5a1.5 1.5 0 0 1 1.5 1.5V18a2 2 0 0 1-2 2H6"/><path d="M7 8.5h6M7 12h6M7 15.5h4"/>'),
+ spark:sv('<path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/>'),
+ gear:sv('<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 1 1-4 0v-.1A1.6 1.6 0 0 0 7 19.4l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.6 1.6 0 0 0 4.6 14H4a2 2 0 1 1 0-4h.1A1.6 1.6 0 0 0 5.6 7l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.6 1.6 0 0 0 10 4.6V4a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 2.7 1.1l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V9a1.6 1.6 0 0 0 1.4 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/>'),
+ refresh:sv('<path d="M20.5 12a8.5 8.5 0 1 1-2.5-6"/><path d="M20.5 3.5V9H15"/>'),
+ shuffle:sv('<path d="M16 3.5h4.5V8"/><path d="M4 20L20.5 3.5"/><path d="M20.5 16v4.5H16"/><path d="M15 15l5.5 5.5"/><path d="M4 4l5 5"/>'),
+ ext:sv('<path d="M14 4h6v6"/><path d="M10 14L20 4"/><path d="M19 13.5V19a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5.5"/>'),
+ alert:sv('<path d="M12 3.5l9.5 16.5h-19z"/><path d="M12 10v4.5M12 17.8v.2"/>'),
+ star:sv('<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>',1),
+ up:sv('<path d="M12 5v14M6 11l6-6 6 6"/>'),
+ lock:sv('<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>'),
+ book:sv('<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 5v14"/>'),
+ info:sv('<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.2"/>'),
+ download:sv('<path d="M12 3v12M7 10l5 5 5-5M4 20h16"/>'),
+ upload:sv('<path d="M12 21V9M7 14l5-5 5 5M4 4h16"/>'),
+ copy:sv('<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>'),
+ dot:sv('<circle cx="12" cy="12" r="4"/>',1),
+ clock:sv('<circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/>'),
+ github:sv('<path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.5-1.1-4.5-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.3 9.3 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.3 4.7-4.5 5 .3.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/>',1)
+};
+
+var pad=function(n){return (n<10?"0":"")+n;};
+function dkey(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());}
+function parseKey(k){var p=k.split("-");return new Date(+p[0],+p[1]-1,+p[2]);}
+function today(){var n=new Date();return new Date(n.getFullYear(),n.getMonth(),n.getDate());}
+function todayKey(){return dkey(today());}
+function addDays(d,n){var x=new Date(d.getFullYear(),d.getMonth(),d.getDate());x.setDate(x.getDate()+n);return x;}
+function fmtDate(d){try{return d.toLocaleDateString(undefined,{weekday:"short",month:"short",day:"numeric"});}catch(e){return dkey(d);}}
+function relTime(ms){var s=(Date.now()-ms)/1000;if(s<60)return"just now";if(s<3600)return Math.floor(s/60)+"m ago";if(s<86400)return Math.floor(s/3600)+"h ago";var d=Math.floor(s/86400);if(d<30)return d+"d ago";return Math.floor(d/30)+"mo ago";}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
+function nowISO(){return new Date().toISOString();}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function vibrate(ms){try{if(navigator.vibrate)navigator.vibrate(ms||12);}catch(e){}}
+function hashStr(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
+function mulberry(a){return function(){a|=0;a=a+1831565813|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function seededShuffle(arr,seedStr){var rnd=mulberry(hashStr(seedStr)),a=arr.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(rnd()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+
+var state=null, ui={tab:"today",filter:"today",search:"",expand:{},noPersist:false};
+function defaultState(){return {tasks:[],habits:[],reads:{},settings:{theme:"system",name:"",seeded:false,onboarded:false}};}
+function migrate(s){
+  s=s||{};s.tasks=Array.isArray(s.tasks)?s.tasks:[];s.habits=Array.isArray(s.habits)?s.habits:[];
+  s.reads=s.reads&&typeof s.reads==="object"?s.reads:{};
+  s.settings=Object.assign({theme:"system",name:"",seeded:true,onboarded:true},s.settings||{});
+  s.habits.forEach(function(h){h.log=h.log||{};if(!Array.isArray(h.days)||!h.days.length)h.days=[0,1,2,3,4,5,6];h.color=h.color||PALETTE[0];h.emoji=h.emoji||"✅";});
+  s.tasks.forEach(function(t){t.priority=t.priority||"med";t.done=!!t.done;});
+  return s;
+}
+function load(){try{var r=localStorage.getItem(KEY);if(r)return migrate(JSON.parse(r));}catch(e){} return seed();}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state));ui.noPersist=false;}catch(e){ui.noPersist=true;}}
+function seed(){
+  var t=today();
+  function mk(name,emoji,color,days,offs){var log={};offs.forEach(function(o){log[dkey(addDays(t,-o))]=true;});return {id:uid(),name:name,emoji:emoji,color:color,days:days,log:log,createdAt:nowISO(),archived:false};}
+  var s=defaultState();s.settings.seeded=true;
+  s.habits=[
+    mk("Read 1 CVE + 2 PoCs","🛡️",PALETTE[0],[0,1,2,3,4,5,6],[0,1,2,4,5]),
+    mk("TryHackMe / HTB","💻",PALETTE[1],[0,1,2,3,4,5,6],[0,1,3,4,6]),
+    mk("Workout","🏋️",PALETTE[3],[1,3,5],[0,2,4,7])
+  ];
+  function dk(o){return dkey(addDays(t,o));}
+  s.tasks=[
+    {id:uid(),title:"Prep this week's security reading for students",note:"Pick 3 CVEs to walk through",priority:"high",due:dk(0),done:false,createdAt:nowISO()},
+    {id:uid(),title:"Review PoC repos before class",priority:"med",due:dk(1),done:false,createdAt:nowISO()},
+    {id:uid(),title:"Grade lab submissions",priority:"low",due:dk(3),done:false,createdAt:nowISO()}
+  ];
+  state=s;save();return s;
+}
+
+/* ---- habit math ---- */
+function isSched(h,d){return h.days.indexOf(d.getDay())>=0;}
+function prevSched(h,d){var x=addDays(d,-1),g=0;while(!isSched(h,x)&&g<400){x=addDays(x,-1);g++;}return x;}
+function curStreak(h){var d=today();if(!isSched(h,d))d=prevSched(h,d);if(dkey(d)===todayKey()&&!h.log[dkey(d)])d=prevSched(h,d);var s=0,g=0;while(g++<3000){if(h.log[dkey(d)]){s++;d=prevSched(h,d);}else break;}return s;}
+function bestStreak(h){var ks=Object.keys(h.log).filter(function(k){return h.log[k];}).sort();if(!ks.length)return 0;var d=parseKey(ks[0]),end=today(),best=0,run=0,g=0;while(d<=end&&g++<9000){if(isSched(h,d)){if(h.log[dkey(d)]){run++;if(run>best)best=run;}else run=0;}d=addDays(d,1);}return best;}
+function comp30(h){var sc=0,dn=0;for(var i=0;i<30;i++){var x=addDays(today(),-i);if(isSched(h,x)){sc++;if(h.log[dkey(x)])dn++;}}return sc?Math.round(dn/sc*100):0;}
+function schedLabel(h){if(h.days.length===7)return "Every day";if(h.days.length===5&&h.days.indexOf(0)<0&&h.days.indexOf(6)<0)return "Weekdays";if(h.days.length===2&&h.days.indexOf(0)>=0&&h.days.indexOf(6)>=0)return "Weekends";return h.days.slice().sort().map(function(i){return WDFULL[i];}).join(" · ");}
+
+/* ---- learning streak (from state.reads) ---- */
+function dayReadCount(k){var r=state.reads[k];return r?Object.keys(r).length:0;}
+function dayComplete(k){return dayReadCount(k)>=3;}
+function learnStreak(){var d=today();if(!dayComplete(dkey(d)))d=addDays(d,-1);var s=0,g=0;while(g++<2000){if(dayComplete(dkey(d))){s++;d=addDays(d,-1);}else break;}return s;}
+function markRead(dayK,itemKey){var r=state.reads[dayK]||(state.reads[dayK]={});if(r[itemKey])delete r[itemKey];else r[itemKey]=1;if(!Object.keys(r).length)delete state.reads[dayK];save();}
+
+/* ---- shared components ---- */
+function dueChip(t){if(!t.done&&t.due){var k=todayKey();if(t.due<k)return '<span class="chip due-over">'+IC.cal+'Overdue</span>';if(t.due===k)return '<span class="chip due-today">'+IC.cal+'Today</span>';return '<span class="chip">'+IC.cal+esc(fmtDate(parseKey(t.due)))+'</span>';}if(t.due)return '<span class="chip">'+IC.cal+esc(fmtDate(parseKey(t.due)))+'</span>';return "";}
+function priChip(p){var m={high:["pri-high","High"],med:["pri-med","Medium"],low:["pri-low","Low"]},x=m[p]||m.med;return '<span class="chip '+x[0]+'">'+x[1]+'</span>';}
+function taskRow(t){return '<div class="row'+(t.done?" done":"")+'">'
+  +'<button class="check" role="checkbox" aria-checked="'+t.done+'" aria-label="Toggle complete" data-act="toggleTask" data-id="'+t.id+'">'+IC.check+'</button>'
+  +'<div class="rowmain" data-act="editTask" data-id="'+t.id+'"><div class="title">'+esc(t.title)+'</div>'
+  +(t.note?'<div class="note">'+esc(t.note)+'</div>':"")+'<div class="chips">'+priChip(t.priority)+dueChip(t)+'</div></div></div>';}
+function ring(pct){var r=32,c=2*Math.PI*r,off=c*(1-pct/100);return '<svg class="ring" width="82" height="82" viewBox="0 0 82 82">'
+  +'<circle cx="41" cy="41" r="'+r+'" fill="none" stroke="var(--surface-2)" stroke-width="8"/>'
+  +'<circle cx="41" cy="41" r="'+r+'" fill="none" stroke="var(--accent)" stroke-width="8" stroke-linecap="round" stroke-dasharray="'+c.toFixed(1)+'" stroke-dashoffset="'+off.toFixed(1)+'" transform="rotate(-90 41 41)"/>'
+  +'<text x="41" y="41" text-anchor="middle" font-size="18" font-weight="800" dominant-baseline="central" class="tnum">'+pct+'%</text></svg>';}
+function habitToggleRow(h){var tk=todayKey(),done=!!h.log[tk],cs=curStreak(h);
+  return '<div class="row"><button class="check" role="checkbox" aria-checked="'+done+'" aria-label="Mark '+esc(h.name)+' done" data-act="toggleHabitDay" data-id="'+h.id+'" data-k="'+tk+'" style="'+(done?'background:'+h.color+';border-color:'+h.color:'')+'">'+IC.check+'</button>'
+  +'<div class="rowmain" data-act="editHabit" data-id="'+h.id+'"><div class="title">'+esc(h.emoji)+'  '+esc(h.name)+'</div>'
+  +'<div class="chips"><span class="streak'+(cs?'':' zero')+'">'+IC.flame+(cs?cs+(cs===1?" day":" days"):"Start today")+'</span></div></div></div>';}
+function daysRow(h){var out='<div class="days">',t=today();
+  for(var i=6;i>=0;i--){var d=addDays(t,-i),k=dkey(d),sched=isSched(h,d),done=!!h.log[k],isT=i===0;
+    out+='<button class="day'+(done?" done":"")+(sched?"":" off")+(isT?" today":"")+'" '+(sched?'data-act="toggleHabitDay" data-id="'+h.id+'" data-k="'+k+'"':"disabled")+'>'
+      +'<span class="lbl">'+WDL[d.getDay()]+'</span><span class="dot" style="'+(done?"background:"+h.color:"")+'">'+IC.check+'</span></button>';}
+  return out+'</div>';}
+function heatmap(h){var weeks=13,t=today(),start=addDays(t,-(weeks*7-1));start=addDays(start,-start.getDay());var out='<div class="heat">',d=new Date(start),endK=dkey(t);
+  for(var c=0;c<weeks+1;c++)for(var r=0;r<7;r++){var k=dkey(d),st="";if(k<=endK){if(h.log[k])st="background:"+h.color;else if(isSched(h,d))st="background:var(--surface-2)";else st="background:transparent";}else st="background:transparent";out+='<span class="heatcell" style="'+st+'" title="'+k+'"></span>';d=addDays(d,1);}
+  return out+'</div>';}
+function habitCard(h){var cs=curStreak(h),bs=bestStreak(h),cp=comp30(h),exp=!!ui.expand[h.id];
+  return '<div class="card habit"><div class="hhead"><div class="hemoji" style="background:color-mix(in srgb,'+h.color+' 20%,transparent)">'+esc(h.emoji)+'</div>'
+  +'<div class="hname">'+esc(h.name)+'<div class="schedline">'+schedLabel(h)+'</div></div>'
+  +'<span class="streak'+(cs?'':' zero')+'">'+IC.flame+'<span class="tnum">'+cs+'</span></span>'
+  +'<button class="iconbtn sm" aria-label="Edit habit" data-act="editHabit" data-id="'+h.id+'">'+IC.gear+'</button></div>'
+  +daysRow(h)+'<div class="hfoot"><div class="bar"><span style="width:'+cp+'%;background:'+h.color+'"></span></div><span class="pct tnum">'+cp+'% · best '+bs+'</span></div>'
+  +'<button class="linkbtn" data-act="expandHabit" data-id="'+h.id+'">'+(exp?"Hide 3-month view":"Show 3-month view")+'</button>'+(exp?heatmap(h):"")+'</div>';}
+
+/* ---- views: today / tasks / habits ---- */
+function viewToday(){
+  var name=(state.settings.name||"").trim(),hr=new Date().getHours();
+  var greet=hr<5?"Good night":hr<12?"Good morning":hr<17?"Good afternoon":hr<21?"Good evening":"Good night";
+  var tk=todayKey(),t=today();
+  var hab=state.habits.filter(function(h){return !h.archived&&isSched(h,t);});
+  var habDone=hab.filter(function(h){return h.log[tk];}).length;
+  var pct=hab.length?Math.round(habDone/hab.length*100):0;
+  var dueTasks=state.tasks.filter(function(x){return !x.done&&x.due&&x.due<=tk;});
+  var ls=learnStreak(),readToday=dayReadCount(tk);
+  var h="";
+  h+='<div><h1 class="h1">'+greet+(name?", "+esc(name):"")+'</h1><div class="sub">'+esc(fmtDate(t))+'</div></div>';
+  if(state.settings.seeded)h+='<div class="banner">Sample tasks &amp; habits are loaded so you can see how it works.<button class="btn sm" data-act="clearSamples">Clear &amp; start fresh</button></div>';
+  if(ui.noPersist)h+='<div class="warn">Storage is blocked (private window?), so changes won’t be saved here. Open the normal site, or export a backup from Settings.</div>';
+  h+='<div class="card pad summary">'+ring(pct)+'<div class="stats">'
+    +'<div class="stat"><div class="n tnum">'+habDone+'/'+hab.length+'</div><div class="l">Habits today</div></div>'
+    +'<div class="stat"><div class="n tnum">'+dueTasks.length+'</div><div class="l">Tasks due</div></div>'
+    +'<div class="stat"><div class="n tnum">'+readToday+'/3</div><div class="l">Read today</div></div></div></div>';
+  h+='<div class="card pad rowlabel" style="cursor:pointer" data-act="setTab" data-val="learn" data-nav>'
+    +'<div><div class="title">'+IC.shield+' Daily security reading</div><div class="muted" style="margin-top:3px">1 CVE + 2 proof-of-concepts to study today</div></div>'
+    +'<span class="streakpill'+(ls?'':' zero')+'">'+IC.flame+'<span class="tnum">'+ls+'</span></span></div>';
+  h+='<div class="sectlabel">Habits for today</div>';
+  h+=hab.length?'<div class="list">'+hab.map(habitToggleRow).join("")+'</div>':'<div class="empty">No habits scheduled today.</div>';
+  h+='<div class="sectlabel">Due today &amp; overdue</div>';
+  h+=dueTasks.length?'<div class="list">'+dueTasks.sort(function(a,b){return (a.due||"").localeCompare(b.due||"");}).map(taskRow).join("")+'</div>':'<div class="empty"><div class="big">✨</div>Nothing due. Clear runway.</div>';
+  return h;
+}
+function viewTasks(){
+  var h='<div><h1 class="h1">Tasks</h1></div>';
+  h+='<form class="card addbar" id="addForm" autocomplete="off"><input class="inp" id="newTitle" placeholder="Add a task…" aria-label="Task title" maxlength="200">'
+    +'<button type="button" class="btn ghost" id="optBtn" aria-label="More options" style="padding:0 12px">⋯</button>'
+    +'<button type="submit" class="btn primary" aria-label="Add task">'+IC.plus+'</button>'
+    +'<div class="optrow" id="optRow" hidden><input class="inp" type="date" id="newDue" aria-label="Due date">'
+    +'<select class="inp" id="newPri" aria-label="Priority"><option value="low">Low priority</option><option value="med" selected>Medium priority</option><option value="high">High priority</option></select></div></form>';
+  var f=ui.filter;
+  h+='<div class="seg">'+["today","upcoming","all","done"].map(function(k){return '<button data-act="setFilter" data-val="'+k+'" aria-pressed="'+(f===k)+'">'+{today:"Today",upcoming:"Upcoming",all:"All",done:"Done"}[k]+'</button>';}).join("")+'</div>';
+  h+='<div class="searchwrap">'+IC.search+'<input class="inp" id="searchInp" placeholder="Search tasks" aria-label="Search tasks" value="'+esc(ui.search)+'"></div>';
+  h+='<div id="taskList">'+taskListHTML()+'</div>';
+  return h;
+}
+function filteredTasks(){
+  var ts=state.tasks.slice(),q=ui.search.trim().toLowerCase();
+  if(q)ts=ts.filter(function(t){return (t.title+" "+(t.note||"")).toLowerCase().indexOf(q)>=0;});
+  var k=todayKey();
+  if(ui.filter==="today")ts=ts.filter(function(t){return !t.done&&t.due&&t.due<=k;});
+  else if(ui.filter==="upcoming")ts=ts.filter(function(t){return !t.done&&(!t.due||t.due>k);});
+  else if(ui.filter==="done")ts=ts.filter(function(t){return t.done;});
+  var pr={high:0,med:1,low:2};
+  ts.sort(function(a,b){if(a.done!==b.done)return a.done?1:-1;var ad=a.due||"9999-99",bd=b.due||"9999-99";if(ad!==bd)return ad<bd?-1:1;var p=(pr[a.priority]==null?1:pr[a.priority])-(pr[b.priority]==null?1:pr[b.priority]);if(p)return p;return (a.createdAt||"").localeCompare(b.createdAt||"");});
+  return ts;
+}
+function taskListHTML(){var ts=filteredTasks();if(!ts.length)return '<div class="empty"><div class="big">📝</div>'+(ui.search?"No tasks match your search.":"No tasks here yet.")+'</div>';return '<div class="list">'+ts.map(taskRow).join("")+'</div>';}
+function viewHabits(){
+  var h='<div class="pagehead"><div><h1 class="h1">Habits</h1></div><button class="btn primary sm" data-act="addHabit">'+IC.plus+'New</button></div>';
+  var hs=state.habits.filter(function(x){return !x.archived;});
+  if(!hs.length)return h+'<div class="empty"><div class="big">🔥</div>No habits yet.<br>Tap <b>New</b> to start a streak.</div>';
+  return h+'<div class="rowspace">'+hs.map(habitCard).join("")+'</div>';
+}
+
+/* ---- actions: tasks & habits ---- */
+function addTask(){var ti=document.getElementById("newTitle"),title=(ti.value||"").trim();if(!title)return;var due=document.getElementById("newDue").value||null,pri=document.getElementById("newPri").value||"med";state.tasks.push({id:uid(),title:title,note:"",priority:pri,due:due,done:false,createdAt:nowISO()});save();vibrate();render();}
+function toggleTask(id){var t=state.tasks.filter(function(x){return x.id===id;})[0];if(!t)return;t.done=!t.done;t.completedAt=t.done?nowISO():null;save();vibrate(t.done?18:10);render();}
+function toggleHabitDay(id,k){var h=state.habits.filter(function(x){return x.id===id;})[0];if(!h||k>todayKey())return;if(h.log[k])delete h.log[k];else h.log[k]=1;save();vibrate();render();}
+function expandHabit(id){ui.expand[id]=!ui.expand[id];render();}
+function setFilter(v){ui.filter=v;render();}
+function deleteTask(id){var i=state.tasks.findIndex(function(x){return x.id===id;});if(i<0)return;var rem=state.tasks.splice(i,1)[0];save();render();showToast("Task deleted","Undo",function(){state.tasks.splice(Math.min(i,state.tasks.length),0,rem);save();render();});}
+function editTask(id){
+  var t=state.tasks.filter(function(x){return x.id===id;})[0];if(!t)return;
+  var body='<div class="field"><label>Title</label><input class="inp" id="eTitle" value="'+esc(t.title)+'" maxlength="200"></div>'
+    +'<div class="field"><label>Note</label><textarea class="inp" id="eNote" style="min-height:70px;font-family:var(--font);font-size:15px" maxlength="1000">'+esc(t.note||"")+'</textarea></div>'
+    +'<div class="sheetrow"><div class="field" style="flex:1"><label>Due date</label><input class="inp" type="date" id="eDue" value="'+(t.due||"")+'"></div>'
+    +'<div class="field" style="flex:1"><label>Priority</label><select class="inp" id="ePri">'+["low","med","high"].map(function(p){return '<option value="'+p+'"'+(t.priority===p?" selected":"")+'>'+{low:"Low",med:"Medium",high:"High"}[p]+'</option>';}).join("")+'</select></div></div>'
+    +'<div class="sheetrow"><button class="btn danger" id="eDel">'+IC.trash+'Delete</button><button class="btn primary block" id="eSave">Save</button></div>';
+  openSheet("Edit task",body,function(sh){
+    sh.querySelector("#eSave").addEventListener("click",function(){var v=sh.querySelector("#eTitle").value.trim();if(!v)return;t.title=v;t.note=sh.querySelector("#eNote").value;t.due=sh.querySelector("#eDue").value||null;t.priority=sh.querySelector("#ePri").value;save();closeSheet();render();});
+    sh.querySelector("#eDel").addEventListener("click",function(){deleteTask(id);closeSheet();});
+  });
+}
+function habitSheet(ex){
+  var h=ex||{name:"",emoji:"✅",color:PALETTE[0],days:[0,1,2,3,4,5,6]},sel={emoji:h.emoji,color:h.color,days:h.days.slice()};
+  var body='<div class="field"><label>Name</label><input class="inp" id="hName" value="'+esc(h.name)+'" placeholder="e.g. Read 1 CVE + 2 PoCs" maxlength="60"></div>'
+    +'<div class="field"><label>Icon</label><div class="picker" id="emojiPick">'+EMOJIS.map(function(e){return '<button type="button" class="pick" data-e="'+e+'" aria-pressed="'+(e===sel.emoji)+'">'+e+'</button>';}).join("")+'</div></div>'
+    +'<div class="field"><label>Color</label><div class="picker" id="colorPick">'+PALETTE.map(function(c){return '<button type="button" class="swatch" data-c="'+c+'" aria-pressed="'+(c===sel.color)+'" style="background:'+c+'"></button>';}).join("")+'</div></div>'
+    +'<div class="field"><label>Repeat</label><div class="seg" id="presetPick"><button type="button" data-p="daily">Daily</button><button type="button" data-p="weekdays">Weekdays</button><button type="button" data-p="custom">Custom</button></div>'
+    +'<div class="wd" id="wdPick" style="margin-top:8px">'+WDL.map(function(l,i){return '<button type="button" data-d="'+i+'" aria-pressed="'+(sel.days.indexOf(i)>=0)+'">'+l+'</button>';}).join("")+'</div></div>'
+    +'<div class="sheetrow">'+(ex?'<button class="btn danger" id="hDel">'+IC.trash+'Delete</button>':"")+'<button class="btn primary block" id="hSave">'+(ex?"Save":"Add habit")+'</button></div>';
+  openSheet(ex?"Edit habit":"New habit",body,function(sh){
+    sh.querySelector("#emojiPick").addEventListener("click",function(e){var b=e.target.closest("[data-e]");if(!b)return;sel.emoji=b.getAttribute("data-e");[].forEach.call(sh.querySelectorAll("#emojiPick .pick"),function(x){x.setAttribute("aria-pressed",x===b);});});
+    sh.querySelector("#colorPick").addEventListener("click",function(e){var b=e.target.closest("[data-c]");if(!b)return;sel.color=b.getAttribute("data-c");[].forEach.call(sh.querySelectorAll("#colorPick .swatch"),function(x){x.setAttribute("aria-pressed",x===b);});});
+    function paintWd(){[].forEach.call(sh.querySelectorAll("#wdPick button"),function(x){x.setAttribute("aria-pressed",sel.days.indexOf(+x.getAttribute("data-d"))>=0);});}
+    sh.querySelector("#wdPick").addEventListener("click",function(e){var b=e.target.closest("[data-d]");if(!b)return;var d=+b.getAttribute("data-d"),i=sel.days.indexOf(d);if(i>=0)sel.days.splice(i,1);else sel.days.push(d);paintWd();});
+    sh.querySelector("#presetPick").addEventListener("click",function(e){var b=e.target.closest("[data-p]");if(!b)return;var p=b.getAttribute("data-p");if(p==="daily")sel.days=[0,1,2,3,4,5,6];else if(p==="weekdays")sel.days=[1,2,3,4,5];else if(!sel.days.length)sel.days=[1,3,5];paintWd();});
+    sh.querySelector("#hSave").addEventListener("click",function(){var name=sh.querySelector("#hName").value.trim();if(!name){sh.querySelector("#hName").focus();return;}if(!sel.days.length)sel.days=[0,1,2,3,4,5,6];if(ex){ex.name=name;ex.emoji=sel.emoji;ex.color=sel.color;ex.days=sel.days.slice();}else{state.habits.push({id:uid(),name:name,emoji:sel.emoji,color:sel.color,days:sel.days.slice(),log:{},createdAt:nowISO(),archived:false});}save();closeSheet();render();});
+    if(ex){var del=sh.querySelector("#hDel");del&&del.addEventListener("click",function(){var i=state.habits.findIndex(function(x){return x.id===ex.id;});if(i>=0){var rem=state.habits.splice(i,1)[0];save();closeSheet();render();showToast("Habit deleted","Undo",function(){state.habits.splice(Math.min(i,state.habits.length),0,rem);save();render();});}});}
+  });
+}
+function editHabit(id){var h=state.habits.filter(function(x){return x.id===id;})[0];if(h)habitSheet(h);}
+function addHabit(){habitSheet(null);}
+function clearSamples(){var keepName=state.settings.name,keepTheme=state.settings.theme;state=defaultState();state.settings.name=keepName;state.settings.theme=keepTheme;state.settings.onboarded=true;save();render();showToast("Cleared — it’s all yours now");}
+
+/* ---- settings ---- */
+function viewSettings(){
+  var s=state.settings,th=s.theme;
+  var h='<div><h1 class="h1">Settings</h1></div>';
+  h+='<div class="sectlabel">Your name</div><input class="inp" id="nameInp" placeholder="Shown in your greeting" value="'+esc(s.name||"")+'" maxlength="40">';
+  h+='<div class="sectlabel">Appearance</div><div class="seg">'+[["system","Auto"],["light","Light"],["dark","Dark"]].map(function(o){return '<button data-act="setTheme" data-val="'+o[0]+'" aria-pressed="'+(th===o[0])+'">'+o[1]+'</button>';}).join("")+'</div>';
+  h+='<div class="sectlabel">Privacy &amp; data</div><div class="card pad"><ul class="plist">'
+    +'<li>'+IC.lock+'<span><b>Your data stays on this device.</b> Tasks, habits and reading progress live in this browser’s local storage. They’re never sent to a server — there is no server.</span></li>'
+    +'<li>'+IC.shield+'<span><b>Live feeds are read-only.</b> The Learn, News and AI tabs fetch public data from the sources below. Nothing about you is sent with those requests beyond a normal page fetch, and your name never leaves the page.</span></li>'
+    +'<li>'+IC.book+'<span><b>Last-read copies are cached</b> so today’s reading still opens if you go offline.</span></li></ul></div>';
+  h+='<div class="card pad rowspace" style="margin-top:12px"><div class="hint">Keep a backup of your tasks, habits and streaks — or move them to another device.</div>'
+    +'<div class="sheetrow"><button class="btn block" data-act="exportData">'+IC.download+'Backup</button><button class="btn block" data-act="importData">'+IC.upload+'Restore</button></div>'
+    +'<button class="btn danger block" data-act="clearAll">'+IC.trash+'Delete all my data</button></div>';
+  h+='<div class="sectlabel">Where the data comes from</div><div class="card pad"><ul class="srcs">'
+    +srcRow("CVEs","CISA Known Exploited Vulnerabilities (official U.S. gov catalog)","https://www.cisa.gov/known-exploited-vulnerabilities-catalog")
+    +srcRow("Proof-of-concept","Public PoC repositories indexed by GitHub Search","https://github.com/search?q=CVE&type=repositories")
+    +'</ul></div>';
+  h+='<div class="sectlabel">Install &amp; host</div><div class="card pad hint">This is one static page. Put <b>index.html</b> in a GitHub repo and enable <b>Settings → Pages</b> to host it free. On your phone, open it in Chrome → <b>⋮</b> → <b>Add to Home screen</b> to launch it full-screen.</div>';
+  h+='<div class="foot">Cadence · local-first · built for learning. Vulnerability data is public information; proof-of-concept code is unvetted — study it, and only run it in an isolated lab you control.</div>';
+  return h;
+}
+function srcRow(role,name,url){return '<li><span class="role">'+esc(role)+'</span><span>'+esc(name)+'</span><a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'+esc(url.replace(/^https:\/\//,""))+'</a></li>';}
+
+function exportData(){
+  var data=JSON.stringify(state,null,2);
+  var body='<div class="hint" style="margin-bottom:10px">Copy this text somewhere safe, or download the file. Restore it later on any device.</div>'
+    +'<textarea class="inp" id="expArea" readonly>'+esc(data)+'</textarea>'
+    +'<div class="sheetrow"><button class="btn" id="expCopy">'+IC.copy+'Copy</button><button class="btn primary block" id="expDl">'+IC.download+'Download</button></div>';
+  openSheet("Backup your data",body,function(sh){
+    sh.querySelector("#expCopy").addEventListener("click",function(){var ta=sh.querySelector("#expArea");ta.select();try{navigator.clipboard.writeText(data).then(function(){toastMsg("Copied");},function(){toastMsg("Selected — press Copy");});}catch(e){try{document.execCommand("copy");toastMsg("Copied");}catch(_){}}});
+    sh.querySelector("#expDl").addEventListener("click",function(){try{var b=new Blob([data],{type:"application/json"}),u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download="cadence-backup-"+todayKey()+".json";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u);},1000);toastMsg("Downloaded");}catch(e){toastMsg("Download blocked — copy the text");}});
+  });
+}
+function importData(){
+  var body='<div class="hint" style="margin-bottom:10px">Pick a backup file or paste backup text. This replaces your current tasks, habits and progress.</div>'
+    +'<input class="inp" type="file" id="impFile" accept="application/json,.json" style="padding:9px"><div class="muted" style="margin:10px 0 6px">or paste</div>'
+    +'<textarea class="inp" id="impArea" placeholder="Paste backup JSON"></textarea><div class="sheetrow"><button class="btn primary block" id="impGo">Restore</button></div>';
+  openSheet("Restore data",body,function(sh){
+    sh.querySelector("#impFile").addEventListener("change",function(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(){sh.querySelector("#impArea").value=r.result;};r.readAsText(f);});
+    sh.querySelector("#impGo").addEventListener("click",function(){var txt=sh.querySelector("#impArea").value.trim();if(!txt){toastMsg("Nothing to restore");return;}try{var o=JSON.parse(txt);if(!o||(!o.tasks&&!o.habits))throw 0;state=migrate(o);state.settings.seeded=false;state.settings.onboarded=true;save();closeSheet();ui.tab="today";render();toastMsg("Data restored");}catch(e){toastMsg("That isn’t a valid backup");}});
+  });
+}
+function clearAll(){
+  var body='<div class="hint" style="margin-bottom:14px">This permanently deletes every task, habit and reading streak on this device. It can’t be undone.</div><button class="btn danger block" id="clrBtn">Delete everything</button>';
+  openSheet("Delete all data?",body,function(sh){var armed=false,b=sh.querySelector("#clrBtn");b.addEventListener("click",function(){if(!armed){armed=true;b.textContent="Tap again to confirm";return;}var nm=state.settings.name,th=state.settings.theme;state=defaultState();state.settings.name=nm;state.settings.theme=th;state.settings.onboarded=true;save();try{localStorage.removeItem(FKEY);}catch(e){}if(typeof feeds!=="undefined")feeds=null;closeSheet();ui.tab="today";render();toastMsg("All data deleted");});});
+}
+
+/* ---- modal / toast / theme ---- */
+function closeSheet(){document.getElementById("modalRoot").innerHTML="";}
+function openSheet(title,body,wire){var m=document.getElementById("modalRoot");m.innerHTML='<div class="backdrop" data-backdrop><div class="sheet" role="dialog" aria-modal="true" aria-label="'+esc(title)+'"><div class="grip"></div><h2>'+esc(title)+'</h2>'+body+'</div></div>';var bd=m.querySelector("[data-backdrop]");bd.addEventListener("click",function(e){if(e.target===bd)closeSheet();});wire&&wire(m.querySelector(".sheet"));}
+var toastTimer=null;
+function toastMsg(m){showToast(m,null,null);}
+function showToast(msg,lab,fn){var r=document.getElementById("toastRoot");r.innerHTML='<div class="toast">'+esc(msg)+(lab?'<button id="tAct">'+esc(lab)+'</button>':"")+'</div>';if(lab)r.querySelector("#tAct").addEventListener("click",function(){clearTimeout(toastTimer);r.innerHTML="";fn&&fn();});clearTimeout(toastTimer);toastTimer=setTimeout(function(){r.innerHTML="";},lab?5200:2200);}
+function applyTheme(){var t=state.settings.theme,root=document.documentElement;if(t==="system")root.removeAttribute("data-theme");else root.setAttribute("data-theme",t);var ic=t==="light"?IC.sun:t==="dark"?IC.moon:IC.auto;[].forEach.call(document.querySelectorAll("[data-theme-btn]"),function(b){if(b.getAttribute("data-theme-btn")==="side")b.innerHTML=ic+'<span>Theme: '+t.charAt(0).toUpperCase()+t.slice(1)+'</span>';else b.innerHTML=ic;});var dark=(t==="dark")||(t==="system"&&window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches);var mt=document.querySelector('meta[name="theme-color"]');if(mt)mt.setAttribute("content",dark?"#0d1312":"#eef1ef");}
+function cycleTheme(){var o=["system","light","dark"],i=o.indexOf(state.settings.theme);setTheme(o[(i+1)%3]);}
+function setTheme(v){state.settings.theme=v;save();applyTheme();if(ui.tab==="settings")render();}
+
+/* ---- navigation / render ---- */
+var NAV=[["today","Today",IC.today],["tasks","Tasks",IC.tasks],["habits","Habits",IC.habits],["learn","Learn",IC.shield]];
+function buildNav(){
+  document.getElementById("tabs").innerHTML=NAV.map(function(t){return '<button class="tab" data-act="setTab" data-val="'+t[0]+'" data-nav>'+t[2]+'<span>'+t[1]+'</span></button>';}).join("");
+  document.getElementById("sideNav").innerHTML=NAV.map(function(t){return '<button class="sidebtn" data-act="setTab" data-val="'+t[0]+'" data-nav>'+t[2]+'<span>'+t[1]+'</span></button>';}).join("");
+  [].forEach.call(document.querySelectorAll("[data-gear]"),function(b){b.innerHTML=IC.gear+(b.classList.contains("sidebtn")?'<span>Settings</span>':"");});
+  [].forEach.call(document.querySelectorAll("[data-mark]"),function(b){b.innerHTML=IC.check;});
+}
+function markNav(){[].forEach.call(document.querySelectorAll("[data-nav]"),function(b){var on=b.getAttribute("data-val")===ui.tab;if(on)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current");});}
+function setTab(v){ui.tab=v;render();}
+function render(){
+  var map={today:viewToday,tasks:viewTasks,habits:viewHabits,learn:viewLearn,settings:viewSettings};
+  var fn=map[ui.tab]||viewToday;
+  document.getElementById("view").innerHTML=fn();
+  markNav();var m=document.getElementById("main");if(m)m.scrollTop=0;
+  wireView();
+  if(typeof enterTab==="function")enterTab(ui.tab);
+}
+function wireView(){
+  if(ui.tab==="tasks"){
+    var form=document.getElementById("addForm");form&&form.addEventListener("submit",function(e){e.preventDefault();addTask();});
+    var ob=document.getElementById("optBtn");ob&&ob.addEventListener("click",function(){var r=document.getElementById("optRow");r.hidden=!r.hidden;});
+    var si=document.getElementById("searchInp");si&&si.addEventListener("input",function(){ui.search=si.value;document.getElementById("taskList").innerHTML=taskListHTML();});
+  }
+  if(ui.tab==="settings"){var ni=document.getElementById("nameInp");ni&&ni.addEventListener("change",function(){state.settings.name=ni.value;save();});}
+}
+
+/* ---- global click delegation ---- */
+document.addEventListener("click",function(e){
+  var el=e.target.closest("[data-act]");if(!el)return;
+  var act=el.getAttribute("data-act"),id=el.getAttribute("data-id"),k=el.getAttribute("data-k"),val=el.getAttribute("data-val");
+  switch(act){
+    case "setTab":setTab(val);break;
+    case "cycleTheme":cycleTheme();break;
+    case "setTheme":setTheme(val);break;
+    case "toggleTask":toggleTask(id);break;
+    case "editTask":editTask(id);break;
+    case "addHabit":addHabit();break;
+    case "editHabit":editHabit(id);break;
+    case "toggleHabitDay":toggleHabitDay(id,k);break;
+    case "expandHabit":expandHabit(id);break;
+    case "setFilter":setFilter(val);break;
+    case "clearSamples":clearSamples();break;
+    case "exportData":exportData();break;
+    case "importData":importData();break;
+    case "clearAll":clearAll();break;
+    default: if(typeof onSecAction==="function")onSecAction(act,el);
+  }
+});
+
+/* ---- onboarding + boot ---- */
+function onboard(){
+  var body='<div class="hint" style="margin-bottom:14px">Welcome. This is your private dashboard — tasks, habits, and daily security reading, all stored on this device. What should it call you?</div>'
+    +'<div class="field"><label>Your name (optional)</label><input class="inp" id="obName" placeholder="e.g. Janak" maxlength="40"></div>'
+    +'<button class="btn primary block" id="obGo">Start</button>';
+  openSheet("Set up Cadence",body,function(sh){
+    var go=function(){state.settings.name=sh.querySelector("#obName").value.trim();state.settings.onboarded=true;save();closeSheet();render();};
+    sh.querySelector("#obGo").addEventListener("click",go);
+    sh.querySelector("#obName").addEventListener("keydown",function(e){if(e.key==="Enter")go();});
+  });
+}
+function init(){
+  state=load();
+  buildNav();applyTheme();render();
+  if(!state.settings.onboarded)onboard();
+  if(window.matchMedia){try{matchMedia("(prefers-color-scheme:dark)").addEventListener("change",function(){if(state.settings.theme==="system")applyTheme();});}catch(e){}}
+}
+
+/* --- security module --- */
+/* ===== Cadence security module: Learn (1 CVE + 2 PoCs per day) ===== */
+var FKEY="cadence.feeds.v1";
+/* Both hosts groups below also appear in the page's Content-Security-Policy connect-src. */
+var SRC={
+  kev:["https://raw.githubusercontent.com/cisagov/kev-data/develop/known_exploited_vulnerabilities.json",
+       "https://cdn.jsdelivr.net/gh/cisagov/kev-data@develop/known_exploited_vulnerabilities.json"],
+  gh:"https://api.github.com/search/repositories?q="
+};
+var FRESH={kev:6*3600e3};
+var DOSE_WINDOW_DAYS=100;   /* only draw CVEs added within this many days */
+
+/* Official CWE names (MITRE taxonomy) — classification only, to label a CVE's weakness class. */
+var CWE={"CWE-20":"Improper Input Validation","CWE-22":"Path Traversal","CWE-59":"Link Following","CWE-74":"Injection","CWE-77":"Command Injection","CWE-78":"OS Command Injection","CWE-79":"Cross-site Scripting","CWE-89":"SQL Injection","CWE-94":"Code Injection","CWE-120":"Buffer Overflow","CWE-125":"Out-of-bounds Read","CWE-190":"Integer Overflow","CWE-200":"Information Exposure","CWE-269":"Improper Privilege Management","CWE-276":"Incorrect Default Permissions","CWE-284":"Improper Access Control","CWE-287":"Improper Authentication","CWE-295":"Improper Certificate Validation","CWE-306":"Missing Authentication","CWE-352":"Cross-Site Request Forgery","CWE-362":"Race Condition","CWE-400":"Uncontrolled Resource Consumption","CWE-416":"Use After Free","CWE-434":"Unrestricted File Upload","CWE-476":"NULL Pointer Dereference","CWE-502":"Deserialization of Untrusted Data","CWE-522":"Insufficiently Protected Credentials","CWE-611":"XML External Entity","CWE-787":"Out-of-bounds Write","CWE-798":"Hard-coded Credentials","CWE-843":"Type Confusion","CWE-862":"Missing Authorization","CWE-863":"Incorrect Authorization","CWE-918":"Server-Side Request Forgery","CWE-1333":"Inefficient Regular Expression"};
+function cweName(c){return CWE[c]||c;}
+function cweNum(c){var m=/CWE-(\d+)/.exec(c);return m?m[1]:"";}
+
+/* ---- feeds cache ---- */
+var feeds=null, loadingLearn=false;
+function loadFeeds(){if(feeds)return feeds;try{var r=localStorage.getItem(FKEY);feeds=r?JSON.parse(r):{};}catch(e){feeds={};}feeds=feeds||{};return feeds;}
+function saveFeeds(){try{localStorage.setItem(FKEY,JSON.stringify(feeds));}catch(e){}}
+function fresh(entry,ms){return entry&&entry.at&&(Date.now()-entry.at)<ms;}
+
+/* ---- fetch helpers (CSP-restricted hosts only) ---- */
+function fetchTO(url,opts,ms){opts=opts||{};var c=new AbortController(),id=setTimeout(function(){c.abort();},ms||13000);
+  return fetch(url,Object.assign({signal:c.signal,mode:"cors",credentials:"omit",cache:"no-store"},opts)).then(function(r){clearTimeout(id);return r;},function(e){clearTimeout(id);throw e;});}
+function fetchJSON(url,ms){return fetchTO(url,{headers:{Accept:"application/json"}},ms).then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json();});}
+function safeUrl(u){u=String(u||"");return /^https?:\/\//i.test(u)?u:"#";}
+
+/* ---- CISA KEV ---- */
+function slimKev(v){return {id:v.cveID,name:v.vulnerabilityName||v.cveID,vendor:v.vendorProject||"",product:v.product||"",
+  desc:(v.shortDescription||"").slice(0,420),dateAdded:v.dateAdded||"",ransom:/known/i.test(v.knownRansomwareCampaignUse||""),cwes:Array.isArray(v.cwes)?v.cwes.slice(0,3):[]};}
+function getKev(force){
+  loadFeeds();
+  if(!force&&fresh(feeds.kev,FRESH.kev)&&feeds.kev.items&&feeds.kev.items.length)return Promise.resolve(feeds.kev.items);
+  return fetchJSON(SRC.kev[0]).catch(function(){return fetchJSON(SRC.kev[1]);}).then(function(d){
+    var arr=(d&&d.vulnerabilities||[]).map(slimKev).filter(function(x){return x.id;});
+    arr.sort(function(a,b){return (b.dateAdded||"").localeCompare(a.dateAdded||"");});
+    feeds.kev={at:Date.now(),items:arr.slice(0,320)};saveFeeds();return feeds.kev.items;
+  }).catch(function(e){if(feeds.kev&&feeds.kev.items)return feeds.kev.items;throw e;});
+}
+
+/* ---- GitHub PoC search ---- */
+function mapRepo(r){return {full:r.full_name,name:r.name,desc:r.description||"",url:r.html_url,stars:r.stargazers_count||0,
+  lang:r.language||"",fork:!!r.fork,created:r.created_at,pushed:r.pushed_at,owner:(r.owner&&r.owner.login)||""};}
+function ghSearch(q,per){return fetchJSON(SRC.gh+encodeURIComponent(q)+"&sort=stars&order=desc&per_page="+(per||6)).then(function(d){return (d.items||[]).map(mapRepo);});}
+
+/* ---- daily dose: 1 CVE + 2 PoCs, drawn from the last DOSE_WINDOW_DAYS ---- */
+function doseSeed(dk){loadFeeds();feeds.salt=feeds.salt||{};return dk+"|"+(feeds.salt[dk]||0);}
+function collectPocs(cve,cands,need){
+  var got=[],seen={};
+  function add(repos,forId){(repos||[]).forEach(function(r){if(got.length<need&&r&&r.full&&!seen[r.full]){seen[r.full]=1;r.forCve=forId;got.push(r);}});}
+  function step(i){
+    if(got.length>=need||i>5)return Promise.resolve(got);
+    var id=(i===0)?cve.id:(cands[i-1]&&cands[i-1].id);
+    if(!id)return Promise.resolve(got);
+    return ghSearch('"'+id+'"',6).then(function(repos){add((repos||[]).filter(function(x){return !x.fork;}),id);add(repos,id);return step(i+1);}).catch(function(){return step(i+1);});
+  }
+  return step(0);
+}
+function computeDose(force){
+  var dk=todayKey();loadFeeds();feeds.dose=feeds.dose||{};
+  if(!force&&feeds.dose[dk]&&feeds.dose[dk].pocs)return Promise.resolve(feeds.dose[dk]);
+  return getKev().then(function(items){
+    var cutoff=dkey(addDays(today(),-DOSE_WINDOW_DAYS));
+    var pool=items.filter(function(v){return v.dateAdded&&v.dateAdded>=cutoff;});
+    if(pool.length<6)pool=items.slice(0,40);
+    var shuf=seededShuffle(pool,doseSeed(dk)),cve=shuf[0],cands=shuf.slice(1,9);
+    return collectPocs(cve,cands,2).then(function(pocs){
+      var dose={cves:[cve],pocs:pocs,at:Date.now()};
+      feeds.dose[dk]=dose;var keys=Object.keys(feeds.dose);if(keys.length>14){keys.sort();delete feeds.dose[keys[0]];}
+      saveFeeds();return dose;
+    });
+  });
+}
+
+/* ---- cards ---- */
+function cveCard(v,opts){
+  opts=opts||{};var dk=todayKey(),itemKey=v.id,read=opts.track&&!!(state.reads[dk]&&state.reads[dk][itemKey]);
+  var chips='';
+  if(v.vendor)chips+='<span class="chip">'+esc(v.vendor)+(v.product?" · "+esc(v.product):"")+'</span>';
+  (v.cwes||[]).forEach(function(c){chips+='<a class="chip" href="https://cwe.mitre.org/data/definitions/'+esc(cweNum(c))+'.html" target="_blank" rel="noopener noreferrer">'+esc(cweName(c))+'</a>';});
+  if(v.ransom)chips+='<span class="chip ransom">'+IC.alert+'Ransomware</span>';
+  if(v.dateAdded)chips+='<span class="chip">Added '+esc(v.dateAdded)+'</span>';
+  var links='<a class="btn sm" href="https://nvd.nist.gov/vuln/detail/'+esc(v.id)+'" target="_blank" rel="noopener noreferrer">NVD'+IC.ext+'</a>'
+    +'<a class="btn sm ghost" href="https://www.cve.org/CVERecord?id='+esc(v.id)+'" target="_blank" rel="noopener noreferrer">CVE.org</a>'
+    +'<a class="btn sm ghost" href="https://github.com/search?q='+encodeURIComponent(v.id)+'&type=repositories" target="_blank" rel="noopener noreferrer">PoCs'+IC.ext+'</a>';
+  var readBtn=opts.track?'<button class="btn sm readbtn" data-act="toggleDose" data-day="'+dk+'" data-key="'+esc(itemKey)+'" aria-pressed="'+read+'">'+(read?IC.check+"Read":"Mark read")+'</button>':'';
+  var study=opts.track?'<div class="study"><div class="studylab">'+IC.book+'How to study this</div><ol>'
+    +'<li>Identify the <b>root cause</b> — the weakness class above and the affected component.</li>'
+    +'<li>Find the <b>fix</b> — which version patches it and what the patch changed.</li>'
+    +'<li>Think <b>detection &amp; defense</b> — how you’d spot or block it in logs, config, or a WAF.</li></ol></div>':'';
+  return '<div class="card intel'+(read?' isread':'')+'"><div class="intelhead"><span class="kind cve">Known-exploited CVE</span><span class="cveid mono">'+esc(v.id)+'</span></div>'
+    +'<h3 class="intelname'+(opts.small?' small':'')+'">'+esc(v.name)+'</h3>'
+    +(v.desc?'<p class="desc">'+esc(v.desc)+'</p>':'')
+    +'<div class="chips">'+chips+'</div>'+study
+    +'<div class="actions">'+links+readBtn+'</div></div>';
+}
+function pocCard(p,opts){
+  opts=opts||{};if(!p)return '';var dk=todayKey(),itemKey=p.full,read=opts.track&&!!(state.reads[dk]&&state.reads[dk][itemKey]);
+  var ageDays=p.created?Math.max(0,Math.round((Date.now()-Date.parse(p.created))/86400e3)):null;
+  var trust='<ul class="trust">'
+    +'<li class="'+(p.stars>=20?'ok':p.stars>=3?'mid':'warn')+'">'+IC.star+'<span>'+p.stars+' star'+(p.stars===1?'':'s')+' — '+(p.stars>=20?'widely referenced':p.stars>=3?'some traction':'few eyes on it, extra caution')+'</span></li>'
+    +(p.fork?'<li class="warn">'+IC.alert+'<span>This is a fork — compare against the original before trusting it</span></li>':'<li class="ok">'+IC.check+'<span>Original repository (not a fork)</span></li>')
+    +(ageDays!=null?'<li class="mid">'+IC.clock+'<span>Created '+ageDays+' day'+(ageDays===1?'':'s')+' ago'+(p.pushed?', last pushed '+relTime(Date.parse(p.pushed)):'')+'</span></li>':'')
+    +(p.lang?'<li class="mid">'+IC.dot+'<span>Primary language: '+esc(p.lang)+'</span></li>':'')
+    +'</ul>';
+  var readBtn=opts.track?'<button class="btn sm readbtn" data-act="toggleDose" data-day="'+dk+'" data-key="'+esc(itemKey)+'" aria-pressed="'+read+'">'+(read?IC.check+"Read":"Mark read")+'</button>':'';
+  return '<div class="card intel'+(read?' isread':'')+'"><div class="intelhead"><span class="kind poc">Proof-of-concept '+(p.forCve?'· '+esc(p.forCve):'')+'</span>'+IC.github+'</div>'
+    +'<h3 class="intelname'+(opts.small?' small':'')+'">'+esc(p.full)+'</h3>'
+    +(p.desc?'<p class="desc">'+esc(p.desc)+'</p>':'<p class="desc muted">No description provided by the author.</p>')
+    +trust
+    +(opts.track?'<div class="callout">'+IC.alert+'<span>Proof-of-concept code is unvetted and can be harmful. Read it before running, and only run it in an isolated lab VM you own — never against systems you don’t have permission to test.</span></div>':'')
+    +'<div class="actions"><a class="btn sm" href="'+esc(safeUrl(p.url))+'" target="_blank" rel="noopener noreferrer">Open on GitHub'+IC.ext+'</a>'+readBtn+'</div></div>';
+}
+
+/* ---- Learn view ---- */
+var secSearch="";
+function skel(n){var o='';for(var i=0;i<n;i++)o+='<div class="card skel"><div class="sk" style="width:40%"></div><div class="sk" style="width:85%"></div><div class="sk" style="width:70%"></div></div>';return o;}
+function failBox(msg,act){return '<div class="card fail">'+IC.alert+'<p>'+esc(msg)+'</p><div class="row2"><button class="btn sm" data-act="'+act+'">'+IC.refresh+'Retry</button></div></div>';}
+function viewLearn(){
+  var ls=learnStreak();
+  var h='<div class="pagehead"><div><h1 class="h1">Learn</h1><div class="sub">One known-exploited CVE and two proof-of-concepts to study each day</div></div>'
+    +'<span class="streakpill'+(ls?'':' zero')+'" title="Daily reading streak">'+IC.flame+'<span class="tnum">'+ls+'</span></span></div>';
+  h+='<div class="sectlabel">Search CVEs &amp; PoCs</div>';
+  h+='<form class="searchwrap" id="cveSearchForm">'+IC.search+'<input class="inp" id="cveSearch" placeholder="Search e.g. Fortinet, RCE, CVE-2026-1234" aria-label="Search vulnerabilities and PoCs" value="'+esc(secSearch)+'"></form>';
+  h+='<div class="foot">CVE search filters CISA’s known-exploited catalog; PoC search queries GitHub live.</div>';
+  h+='<div id="searchResults" class="rowspace"></div>';
+  h+='<div class="rowlabel"><div class="sectlabel">Today’s reading</div><div class="hbtns">'
+    +'<button class="iconbtn sm" data-act="reshuffleDose" aria-label="Pick a different set">'+IC.shuffle+'</button>'
+    +'<button class="iconbtn sm" data-act="refreshLearn" aria-label="Refresh">'+IC.refresh+'</button></div></div>';
+  h+='<div id="doseWrap" class="rowspace">'+skel(3)+'</div>';
+  return h;
+}
+function afterLearn(){
+  var wrap=document.getElementById("doseWrap");if(!wrap)return;
+  var form=document.getElementById("cveSearchForm");
+  if(form)form.addEventListener("submit",function(e){e.preventDefault();runSearch(document.getElementById("cveSearch").value);});
+  if(secSearch)runSearch(secSearch,true);
+  if(loadingLearn)return;loadingLearn=true;
+  computeDose().then(function(dose){
+    loadingLearn=false;var w=document.getElementById("doseWrap");if(!w)return;
+    var html=dose.cves.map(function(v){return cveCard(v,{track:true});}).join("");
+    html+=(dose.pocs&&dose.pocs.length)?dose.pocs.map(function(p){return pocCard(p,{track:true});}).join("")
+      :'<div class="card pad hint">No public proof-of-concept found for today’s CVE yet. Try the shuffle button, or search below.</div>';
+    w.innerHTML=html;
+  }).catch(function(){loadingLearn=false;var w=document.getElementById("doseWrap");if(w)w.innerHTML=failBox("Couldn’t reach the CVE catalog. This needs to be online — it works once the page is hosted (e.g. GitHub Pages).","refreshLearn");});
+}
+function runSearch(q,keep){
+  q=(q||"").trim();secSearch=q;var box=document.getElementById("searchResults");if(!box)return;
+  if(!q){box.innerHTML="";return;}
+  box.innerHTML=skel(2);
+  var out={cve:null,poc:null};
+  function paint(){
+    var w=document.getElementById("searchResults");if(!w||out.cve===null||out.poc===null)return;
+    var h='<div class="sectlabel">Known-exploited CVEs · '+out.cve.length+'</div>';
+    h+=out.cve.length?out.cve.slice(0,12).map(function(v){return cveCard(v,{small:true});}).join(""):'<div class="empty">No matches in the CISA known-exploited catalog.</div>';
+    h+='<div class="sectlabel">PoC repositories on GitHub · '+out.poc.length+'</div>';
+    h+=out.poc.length?out.poc.slice(0,10).map(function(p){return pocCard(p,{small:true});}).join(""):'<div class="empty">No PoC repositories found for that search.</div>';
+    w.innerHTML=h;
+  }
+  getKev().then(function(items){var ql=q.toLowerCase();out.cve=items.filter(function(v){return (v.id+" "+v.name+" "+v.vendor+" "+v.product+" "+v.desc).toLowerCase().indexOf(ql)>=0;});paint();}).catch(function(){out.cve=[];paint();});
+  var ghq=/^cve-\d{4}-\d+$/i.test(q)?'"'+q+'"':q+" CVE";
+  ghSearch(ghq,10).then(function(repos){out.poc=repos;paint();}).catch(function(){out.poc=[];paint();});
+}
+
+/* ---- tab enter + security actions ---- */
+function enterTab(tab){if(tab==="learn")afterLearn();}
+function onSecAction(act,el){
+  switch(act){
+    case "toggleDose":{markRead(el.getAttribute("data-day"),el.getAttribute("data-key"));vibrate();render();break;}
+    case "reshuffleDose":{loadFeeds();var dk=todayKey();feeds.salt=feeds.salt||{};feeds.salt[dk]=(feeds.salt[dk]||0)+1;if(feeds.dose)delete feeds.dose[dk];saveFeeds();var w=document.getElementById("doseWrap");if(w)w.innerHTML=skel(3);loadingLearn=false;afterLearn();break;}
+    case "refreshLearn":{loadFeeds();var d2=todayKey();if(feeds.dose)delete feeds.dose[d2];if(feeds.kev)feeds.kev.at=0;saveFeeds();var w2=document.getElementById("doseWrap");if(w2)w2.innerHTML=skel(3);loadingLearn=false;afterLearn();break;}
+  }
+}
+
+init();
+})();
+</script>
+</body>
+</html>
