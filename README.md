@@ -32,8 +32,8 @@ day"** routine: two *known-exploited* CVEs and one proof-of-concept to study,
 drawn live from authoritative public sources — plus cybersecurity and AI/LLM
 security news. Everything you create stays on your own device.
 
-It's built for learners. I use it to give my students a small daily dose of
-real-world vulnerabilities to understand and defend against.
+It's built for learners — a small daily dose of real-world vulnerabilities to
+understand and defend against.
 
 ## Features
 
@@ -50,47 +50,6 @@ The daily picks are **deterministic per day** — everyone gets a stable set tha
 rotates at midnight (there's a shuffle button for a fresh draw). Mark all three
 as read to keep your streak alive.
 
-## Live demo
-
-After you deploy (below), your copy lives at:
-
-```
-https://<your-username>.github.io/<repo-name>/
-```
-
----
-
-## 🚀 Deploy to GitHub Pages (≈2 minutes)
-
-1. Create a new repository, e.g. `cadence`.
-2. Upload the project files to the repo root. The only required file is
-   **`index.html`** — the rest (`README.md`, `LICENSE`, `screenshots/`) are
-   optional but make a nicer repo:
-   ```
-   your-repo/
-   ├── index.html          ← the whole app
-   ├── README.md
-   ├── LICENSE
-   └── screenshots/
-       ├── today.png
-       ├── learn.png
-       ├── ai.png
-       └── desktop.png
-   ```
-3. Go to **Settings → Pages**.
-4. Under *Build and deployment*: **Source → Deploy from a branch**, branch
-   **`main`**, folder **`/ (root)`**, then **Save**.
-5. Wait ~1 minute. Your site is live at the URL above.
-
-On your phone, open that URL in Chrome → **⋮ → Add to Home screen** to run it
-full-screen like an app.
-
-> ### ⚠️ Why it must be hosted
-> The **Tasks** and **Habits** tabs work fully offline. But the **Learn / News /
-> AI** tabs fetch live data, and browsers only allow those cross-site requests
-> from a real `https://` origin. So the feeds work on GitHub Pages — but **not**
-> if you just double-click the file (`file://`). That's the whole reason to host it.
-
 ---
 
 ## 📡 Data sources — one genuine source per task
@@ -104,8 +63,9 @@ All free, public, and **no API key required**.
 | **Cyber news** | [The Hacker News](https://thehackernews.com) | Widely-read daily security reporting. |
 | **AI / LLM security** | [Hacker News](https://news.ycombinator.com) (Algolia search) | Surfaces LLM launches, jailbreaks and defense research as the community posts them. |
 
-> **GitHub rate limit:** unauthenticated search allows ~10 requests/min per IP.
-> The daily reading is cached, so normal use stays well under that.
+The **Tasks** and **Habits** tabs work fully offline. The **Learn / News / AI**
+tabs load live data, so they run from a hosted `https://` page (browsers block
+those cross-site requests from a local `file://`).
 
 ---
 
@@ -114,10 +74,10 @@ All free, public, and **no API key required**.
 This is a security tool, so the model is spelled out in full.
 
 **There is no server, so there is no central database to breach.** Every user's
-data lives only in *their own browser*, on *their own device*. As the host you
-never receive it, and there's nothing to leak.
+data lives only in *their own browser*, on *their own device*. Nothing is sent
+anywhere, and there's nothing to leak.
 
-**Measures built into the page:**
+**Built into the page:**
 - **Strict Content-Security-Policy** — `default-src 'none'` with an explicit
   `connect-src` allowlist. The page can contact **only** these eight hosts and
   nothing else: `raw.githubusercontent.com`, `cdn.jsdelivr.net`,
@@ -132,15 +92,15 @@ never receive it, and there's nothing to leak.
 - **Offline-tolerant:** the last successful fetch of each feed is cached, so
   today's reading still opens without a connection.
 
-**Honest residual notes (good to teach, not weaknesses in the code):**
+**Honest residual notes (worth knowing, not weaknesses in the code):**
 - `localStorage` is **not encrypted** — it's plaintext in that device's browser
-  profile. It's as private as the device. Don't use it on a shared computer account.
+  profile. It's as private as the device. Avoid shared-computer accounts.
 - Loading live data reveals the user's **IP address** to those public sources,
   exactly like visiting any website. No personal data is ever sent. (The
   Tasks/Habits tabs make no network requests at all.)
-- GitHub Pages keeps normal **web-server logs** (IP + file requested), like any host.
 
-Back up or move your data anytime from **Settings → Backup / Restore** (a JSON file).
+Your data can be backed up or moved anytime from **Settings → Backup / Restore**
+(a JSON file).
 
 ---
 
@@ -152,18 +112,6 @@ harmful** — read it before running, and only run it inside an isolated lab
 environment you own and have permission to test.
 
 ---
-
-## 🛠️ Customizing
-
-Everything is in `index.html`. Near the top of the script you'll find:
-- `SRC` — the data-source endpoints
-- `FRESH` — cache lifetimes per feed
-- `AIQ` — the search terms used for the AI tab
-
-> If you edit the inline script, the CSP's `script-src 'sha256-…'` hash must be
-> recomputed to match, or the script won't run. While developing you can
-> temporarily replace the hash with `'unsafe-inline'`, then restore a pinned hash
-> for production.
 
 ## ⚙️ Tech
 
