@@ -10,7 +10,7 @@ No build step · No backend · No accounts · No trackers · One `index.html`
 
 <div align="center">
 
-![Cadence on desktop](screenshots/desktop.png)
+
 
 </div>
 
